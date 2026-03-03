@@ -1,149 +1,86 @@
-geoPoliticalSite/
-├─ backend/
-│  ├─ server.js
-│  └─ analyze.js
-├─ frontend/
-│  ├─ public/
-│  └─ src/
-│     ├─ App.js
-│     ├─ components/
-│     │   ├─ Header.js
-│     │   ├─ NewsFeed.js
-│     │   └─ Footer.js
-│     └─ styles.css
-└─ package.jsonconst express = require('express');
-const cors = require('cors');
-const { analyzeNews } = require('./analyze');
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع البحث الاستراتيجي في الشرق الأوسط</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+            margin: 0;
+        }
+        header {
+            background: #003366;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        #news-feed {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .news-item {
+            background: #fff;
+            padding: 15px;
+            border-left: 5px solid #cc0000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #003366;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>موقع البحث الاستراتيجي في الشرق الأوسط</h1>
+        <p>تحليل الأحداث السياسية والجيوسياسية في المنطقة</p>
+    </header>
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+    <main id="news-feed"></main>
 
-const PORT = 5000;
+    <footer>
+        <p>تم تطوير الموقع بواسطة Youseef Al Jarah</p>
+    </footer>
 
-// نموذج endpoint لجلب الأخبار وتحليلها
-app.get('/api/news', async (req, res) => {
-    // هنا يمكن إضافة كود لجلب الأخبار من RSS أو API إخباري
-    const dummyNews = [
-        { title: "تطورات جديدة في الصراع بين إيران وإسرائيل", content: "تفاصيل الأحداث..." },
-        { title: "الولايات المتحدة تتدخل في المنطقة", content: "تفاصيل التدخل..." },
-    ];
+    <script>
+        // بيانات الأخبار مدمجة مباشرة داخل الكود
+        const newsData = [
+            {
+                "title": "تطورات جديدة في الصراع بين إيران وإسرائيل",
+                "content": "تفاصيل الأحداث الأخيرة بين إيران وإسرائيل...",
+                "analysis": "عالي الاهتمام"
+            },
+            {
+                "title": "الولايات المتحدة تتدخل في المنطقة",
+                "content": "تحركات الولايات المتحدة الأخيرة في الشرق الأوسط...",
+                "analysis": "متوسط الاهتمام"
+            },
+            {
+                "title": "فصائل المقاومة تعلن مواقف جديدة",
+                "content": "تصريحات فصائل المقاومة حول الوضع الراهن...",
+                "analysis": "عالي الاهتمام"
+            }
+        ];
 
-    const analyzed = dummyNews.map(article => analyzeNews(article));
-    res.json(analyzed);
-});
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));// خوارزمية بسيطة لتحليل النصوص السياسية
-function analyzeNews(article) {
-    // تقييم المحتوى بشكل أولي
-    const keywords = ["إيران", "إسرائيل", "الولايات المتحدة", "فصائل المقاومة"];
-    let score = 0;
-    keywords.forEach(word => {
-        if (article.content.includes(word)) score += 1;
-    });
-
-    let sentiment = score >= 2 ? "عالي الاهتمام" : "متوسط الاهتمام";
-
-    return {
-        title: article.title,
-        content: article.content,
-        analysis: sentiment
-    };
-}
-
-module.exports = { analyzeNews };mport React, { useEffect, useState } from 'react';
-import './styles.css';
-import Header from './components/Header';
-import NewsFeed from './components/NewsFeed';
-import Footer from './components/Footer';
-
-function App() {
-    const [news, setNews] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:5000/api/news')
-            .then(res => res.json())
-            .then(data => setNews(data))
-            .catch(err => console.log(err));
-    }, []);
-
-    return (
-        <div className="app">
-            <Header />
-            <NewsFeed news={news} />
-            <Footer author="Your Name" />
-        </div>
-    );
-}
-
-export default App;import React from 'react';
-
-function Header() {
-    return (
-        <header className="header">
-            <h1>موقع البحث الاستراتيجي في الشرق الأوسط</h1>
-            <p>تحليل الأحداث السياسية والجيوسياسية في المنطقة</p>
-        </header>
-    );
-}
-
-export default Header;import React from 'react';
-
-function NewsFeed({ news }) {
-    return (
-        <div className="news-feed">
-            {news.map((article, index) => (
-                <div key={index} className="news-item">
-                    <h2>{article.title}</h2>
-                    <p>{article.content}</p>
-                    <strong>تحليل: {article.analysis}</strong>
-                </div>
-            ))}
-        </div>
-    );
-}
-
-export default NewsFeed;import React from 'react';
-
-function Footer({ author }) {
-    return (
-        <footer className="footer">
-            <p>تم تطوير الموقع بواسطة {author}</p>
-        </footer>
-    );
-}
-
-export default Footer;body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    color: #222;
-    margin: 0;
-}
-
-.header {
-    background: #003366;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-}
-
-.news-feed {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.news-item {
-    background: #fff;
-    padding: 15px;
-    border-left: 5px solid #cc0000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.footer {
-    text-align: center;
-    padding: 15px;
-    background: #003366;
-    color: #fff;
-}
+        // عرض الأخبار على الصفحة
+        const feed = document.getElementById('news-feed');
+        newsData.forEach(article => {
+            const div = document.createElement('div');
+            div.className = 'news-item';
+            div.innerHTML = `
+                <h2>${article.title}</h2>
+                <p>${article.content}</p>
+                <strong>تحليل: ${article.analysis}</strong>
+            `;
+            feed.appendChild(div);
+        });
+    </script>
+</body>
+</html>
