@@ -3,239 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>خريطة الشرق الأوسط تفاعلية</title>
+<title>خريطة دول الصراع في الشرق الأوسط</title>
 <style>
-body { font-family: sans-serif; margin:0; text-align:center; background:#f5f5f5; }
-.language-toggle { margin:15px; }
-.language-toggle button { padding:8px 16px; margin:4px; cursor:pointer; font-size:16px; }
-h1 { color:#003366; margin:5px; }
-.map-container { position:relative; display:inline-block; margin:10px auto; max-width:90%; overflow:hidden; border:2px solid #000; background:#eee; touch-action: none; }
-#map { width:100%; transform-origin: 0 0; cursor: grab; display:block; }
+body { font-family:sans-serif; text-align:center; background:#f5f5f5; margin:0; }
+h1 { color:#003366; margin:10px; }
+svg { width:90%; max-width:800px; border:2px solid #000; }
+.country { fill:#003366; stroke:#000; stroke-width:1; cursor:pointer; transition:fill 0.3s; }
+.country:hover { fill:#ff6600; }
 .tooltip { position:absolute; background:rgba(0,0,0,0.8); color:#fff; padding:6px 12px; border-radius:6px; display:none; pointer-events:none; font-size:14px; white-space: nowrap; }
-#reset-btn { margin:10px; padding:6px 12px; cursor:pointer; }
+.language-toggle { margin:10px; }
+.language-toggle button { padding:8px 16px; margin:4px; cursor:pointer; font-size:16px; }
 </style>
 </head>
 <body>
+
+<h1 id="title">خريطة دول الصراع في الشرق الأوسط</h1>
 
 <div class="language-toggle">
 <button id="ar-btn">عربي</button>
 <button id="en-btn">English</button>
 </div>
 
-<h1 id="title">خريطة الشرق الأوسط</h1>
-
-<div class="map-container">
-<img id="map" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA... (ضع هنا Base64 للصورة)" alt="Middle East Map">
+<div style="position:relative;">
+<svg viewBox="0 0 600 400" id="map">
+  <!-- سوريا -->
+  <path id="syria" class="country" d="M200,50 L250,50 L250,100 L200,100 Z"></path>
+  <!-- العراق -->
+  <path id="iraq" class="country" d="M250,80 L300,80 L300,130 L250,130 Z"></path>
+  <!-- اليمن -->
+  <path id="yemen" class="country" d="M250,250 L300,250 L300,300 L250,300 Z"></path>
+  <!-- ليبيا -->
+  <path id="libya" class="country" d="M100,150 L150,150 L150,200 L100,200 Z"></path>
+  <!-- فلسطين -->
+  <path id="palestine" class="country" d="M220,120 L240,120 L240,140 L220,140 Z"></path>
+</svg>
 <div id="tooltip" class="tooltip"></div>
 </div>
 
-<button id="reset-btn">إعادة الخريطة</button>
-
 <script>
-const map = document.getElementById('map');
-const tooltip = document.getElementById('tooltip');
-const title = document.getElementById('title');
-const arBtn = document.getElementById('ar-btn');
-const enBtn = document.getElementById('en-btn');
-const resetBtn = document.getElementById('reset-btn');
-
-let language = 'ar';
-
-// بيانات الدول (إحداثيات تقريبية)
-const countries = [
-{name_ar:'العراق', name_en:'Iraq', capital_ar:'بغداد', capital_en:'Baghdad', population:'40M', x:400, y:150},
-{name_ar:'السعودية', name_en:'Saudi Arabia', capital_ar:'الرياض', capital_en:'Riyadh', population:'35M', x:400, y:300},
-{name_ar:'إيران', name_en:'Iran', capital_ar:'طهران', capital_en:'Tehran', population:'85M', x:500, y:120},
-{name_ar:'سوريا', name_en:'Syria', capital_ar:'دمشق', capital_en:'Damascus', population:'18M', x:350, y:100},
-{name_ar:'الأردن', name_en:'Jordan', capital_ar:'عمان', capital_en:'Amman', population:'10M', x:300, y:150},
-];
-
-// Tooltip
-map.addEventListener('mousemove',(e)=>{
-const rect=map.getBoundingClientRect();
-const mouseX=e.clientX-rect.left;
-const mouseY=e.clientY-rect.top;
-let found=false;
-countries.forEach(country=>{
-if(Math.abs(mouseX-country.x)<30 && Math.abs(mouseY-country.y)<30){
-tooltip.style.display='block';
-tooltip.style.left=(country.x+10)+'px';
-tooltip.style.top=(country.y+10)+'px';
-tooltip.innerHTML=language==='ar'? 
-`${country.name_ar}<br>العاصمة: ${country.capital_ar}<br>السكان: ${country.population}` :
-`${country.name_en}<br>Capital: ${country.capital_en}<br>Population: ${country.population}`;
-found=true;
-}
-});
-if(!found){tooltip.style.display='none';}
-});
-
-// اللغة
-arBtn.addEventListener('click',()=>{language='ar'; title.innerText='خريطة الشرق الأوسط';});
-enBtn.addEventListener('click',()=>{language='en'; title.innerText='Middle East Map';});
-
-// Zoom & Pan
-let scale=1, originX=0, originY=0, startX=0, startY=0, dragging=false;
-
-map.addEventListener('wheel',(e)=>{
-e.preventDefault();
-const delta = e.deltaY>0?-0.1:0.1;
-scale=Math.min(Math.max(0.5,scale+delta),3);
-map.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;
-});
-
-map.addEventListener('mousedown',(e)=>{dragging=true; startX=e.clientX-originX; startY=e.clientY-originY; map.style.cursor='grabbing';});
-map.addEventListener('mouseup',()=>{dragging=false; map.style.cursor='grab';});
-map.addEventListener('mouseleave',()=>{dragging=false; map.style.cursor='grab';});
-map.addEventListener('mousemove',(e)=>{
-if(dragging){originX=e.clientX-startX; originY=e.clientY-startY; map.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;}
-});
-
-// إعادة الخريطة
-resetBtn.addEventListener('click',()=>{
-scale=1; originX=0; originY=0;
-map.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;
-});
-
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>خريطة الشرق الأوسط تفاعلية</title>
-<style>
-body { font-family:sans-serif; margin:0; text-align:center; background:#f5f5f5; }
-.language-toggle { margin:15px; }
-.language-toggle button { padding:8px 16px; margin:4px; cursor:pointer; font-size:16px; }
-h1 { color:#003366; margin:5px; }
-.map-container { position:relative; display:inline-block; margin:10px auto; max-width:90%; overflow:hidden; border:2px solid #000; background:#eee; }
-#map { width:100%; display:block; }
-.tooltip { position:absolute; background:rgba(0,0,0,0.8); color:#fff; padding:6px 12px; border-radius:6px; display:none; pointer-events:none; font-size:14px; white-space: nowrap; }
-#reset-btn { margin:10px; padding:6px 12px; cursor:pointer; }
-.overlay { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
-</style>
-</head>
-<body>
-
-<div class="language-toggle">
-<button id="ar-btn">عربي</button>
-<button id="en-btn">English</button>
-</div>
-
-<h1 id="title">خريطة الشرق الأوسط</h1>
-
-<div class="map-container">
-<img id="map" src="images/middle_east_map.png" alt="Middle East Map">
-<canvas id="overlay" class="overlay"></canvas>
-<div id="tooltip" class="tooltip"></div>
-</div>
-
-<button id="reset-btn">إعادة الخريطة</button>
-
-<script>
-const map=document.getElementById('map');
 const tooltip=document.getElementById('tooltip');
 const title=document.getElementById('title');
 const arBtn=document.getElementById('ar-btn');
 const enBtn=document.getElementById('en-btn');
-const resetBtn=document.getElementById('reset-btn');
-const overlay=document.getElementById('overlay');
-const ctx=overlay.getContext('2d');
 
 let language='ar';
 
-// بيانات الدول (إحداثيات تقريبية)
 const countries=[
-{name_ar:'العراق', name_en:'Iraq', capital_ar:'بغداد', capital_en:'Baghdad', population:'40M', x:400, y:150, w:40, h:40},
-{name_ar:'السعودية', name_en:'Saudi Arabia', capital_ar:'الرياض', capital_en:'Riyadh', population:'35M', x:400, y:300, w:50, h:50},
-{name_ar:'إيران', name_en:'Iran', capital_ar:'طهران', capital_en:'Tehran', population:'85M', x:500, y:120, w:50, h:50},
-{name_ar:'سوريا', name_en:'Syria', capital_ar:'دمشق', capital_en:'Damascus', population:'18M', x:350, y:100, w:40, h:40},
-{name_ar:'الأردن', name_en:'Jordan', capital_ar:'عمان', capital_en:'Amman', population:'10M', x:300, y:150, w:30, h:30},
+{id:'syria', name_ar:'سوريا', name_en:'Syria'},
+{id:'iraq', name_ar:'العراق', name_en:'Iraq'},
+{id:'yemen', name_ar:'اليمن', name_en:'Yemen'},
+{id:'libya', name_ar:'ليبيا', name_en:'Libya'},
+{id:'palestine', name_ar:'فلسطين', name_en:'Palestine'},
 ];
 
-// ضبط حجم Canvas Overlay
-overlay.width=map.width;
-overlay.height=map.height;
-
-// Tooltip وتغيير اللون عند المرور
-map.addEventListener('mousemove',e=>{
-    const rect=map.getBoundingClientRect();
-    const mouseX=e.clientX-rect.left;
-    const mouseY=e.clientY-rect.top;
-
-    let found=false;
-    ctx.clearRect(0,0,overlay.width,overlay.height);
-
-    countries.forEach(c=>{
-        if(mouseX>c.x && mouseX<c.x+c.w && mouseY>c.y && mouseY<c.y+c.h){
-            found=true;
-            tooltip.style.display='block';
-            tooltip.style.left=e.pageX+10+'px';
-            tooltip.style.top=e.pageY+10+'px';
-            tooltip.innerHTML=language==='ar'?
-            `${c.name_ar}<br>العاصمة: ${c.capital_ar}<br>السكان: ${c.population}`:
-            `${c.name_en}<br>Capital: ${c.capital_en}<br>Population: ${c.population}`;
-            // تلوين المنطقة عند المرور
-            ctx.fillStyle='rgba(255,102,0,0.4)';
-            ctx.fillRect(c.x,c.y,c.w,c.h);
-        }
-    });
-    if(!found){tooltip.style.display='none'; ctx.clearRect(0,0,overlay.width,overlay.height);}
-});
-
-// تبديل اللغة
-arBtn.addEventListener('click',()=>{language='ar'; title.innerText='خريطة الشرق الأوسط';});
-enBtn.addEventListener('click',()=>{language='en'; title.innerText='Middle East Map';});
-
-// إعادة الخريطة
-resetBtn.addEventListener('click',()=>{
-    tooltip.style.display='none';
-    ctx.clearRect(0,0,overlay.width,overlay.height);
-});
-
-</script>
-</body>
-</html>
-<div class="map-container">
-  <!-- الخريطة القديمة مع Overlay -->
-  <img id="map" src="images/middle_east_map.png" alt="Middle East Map">
-  <canvas id="overlay" class="overlay"></canvas>
-
-  <!-- الخريطة الجديدة لدول الصراع -->
-  <svg viewBox="0 0 600 400" id="conflict-map" style="position:absolute; top:0; left:0; width:100%; height:100%;">
-    <path id="syria_svg" class="country" d="M200,50 L250,50 L250,100 L200,100 Z"></path>
-    <path id="iraq_svg" class="country" d="M250,80 L300,80 L300,130 L250,130 Z"></path>
-    <path id="yemen_svg" class="country" d="M250,250 L300,250 L300,300 L250,300 Z"></path>
-    <path id="libya_svg" class="country" d="M100,150 L150,150 L150,200 L100,200 Z"></path>
-    <path id="palestine_svg" class="country" d="M220,120 L240,120 L240,140 L220,140 Z"></path>
-  </svg>
-
-  <div id="tooltip" class="tooltip"></div>
-</div>
-
-<script>
-// التفاعل للخريطة الجديدة لدول الصراع
-const conflictCountries=[
-  {id:'syria_svg', name_ar:'سوريا', name_en:'Syria'},
-  {id:'iraq_svg', name_ar:'العراق', name_en:'Iraq'},
-  {id:'yemen_svg', name_ar:'اليمن', name_en:'Yemen'},
-  {id:'libya_svg', name_ar:'ليبيا', name_en:'Libya'},
-  {id:'palestine_svg', name_ar:'فلسطين', name_en:'Palestine'},
-];
-
-conflictCountries.forEach(c=>{
+countries.forEach(c=>{
   const el=document.getElementById(c.id);
   el.addEventListener('mousemove',e=>{
-    const tooltip=document.getElementById('tooltip');
     tooltip.style.display='block';
     tooltip.style.left=e.pageX+10+'px';
     tooltip.style.top=e.pageY+10+'px';
     tooltip.innerText=language==='ar'?c.name_ar:c.name_en;
   });
-  el.addEventListener('mouseleave',()=>{document.getElementById('tooltip').style.display='none';});
+  el.addEventListener('mouseleave',()=>{tooltip.style.display='none';});
 });
+
+// تبديل اللغة
+arBtn.addEventListener('click',()=>{language='ar'; title.innerText='خريطة دول الصراع في الشرق الأوسط';});
+enBtn.addEventListener('click',()=>{language='en'; title.innerText='Middle East Conflict Countries Map';});
 </script>
+
+</body>
+</html>
