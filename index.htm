@@ -3,112 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intelligence Hub | Yousif al jarah</title>
+    <title>Yousif al jarah AI | Intelligence 2026</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        :root { --main-gold: #d4af37; --cyber-blue: #00d4ff; --danger-red: #ff0000; --bg: #010204; }
-        body { background: var(--bg); color: #e1e1e1; font-family: 'Tahoma', sans-serif; margin: 0; overflow-x: hidden; }
+        :root { --gold: #d4af37; --cyan: #00f2ff; --bg: #02040a; }
+        body { background: var(--bg); color: #c9d1d9; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; }
         
-        /* شريط العنوان الاحترافي باسمك */
+        /* الهيدر */
         header { 
-            background: #0a0c10; padding: 20px 5%; border-bottom: 2px solid var(--main-gold);
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            background: #0d1117; padding: 20px; border-bottom: 2px solid var(--gold);
+            text-align: center; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
-        .identity { font-size: 1.5rem; font-weight: bold; color: var(--main-gold); letter-spacing: 2px; }
-        .ai-status { font-size: 0.8rem; color: #3fb950; }
+        .user-id { font-size: 1.6rem; font-weight: bold; color: var(--gold); text-transform: uppercase; }
 
-        /* محرك البحث الاستخباراتي */
-        .search-sector { padding: 20px 5%; background: #0d1117; text-align: center; }
-        #intel-search { 
-            width: 60%; padding: 12px 20px; border-radius: 25px; 
-            border: 1px solid var(--cyber-blue); background: #000; color: #fff;
-            outline: none; transition: 0.3s;
+        /* محرك البحث المفعل */
+        .search-box { background: #161b22; padding: 30px; text-align: center; }
+        #ai-query { 
+            width: 50%; padding: 12px; border-radius: 5px; border: 1px solid var(--cyan); 
+            background: #000; color: #fff; outline: none;
         }
-        #intel-search:focus { box-shadow: 0 0 15px var(--cyber-blue); }
+        .search-btn { 
+            padding: 12px 25px; border-radius: 5px; background: var(--cyan); 
+            border: none; cursor: pointer; font-weight: bold; color: #000;
+        }
 
-        .dashboard { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; padding: 20px 5%; }
-        #map-view { height: 550px; border-radius: 15px; border: 1px solid #30363d; }
+        .main-frame { display: grid; grid-template-columns: 1fr 350px; gap: 20px; padding: 20px; }
+        #map { height: 500px; border-radius: 10px; border: 1px solid #30363d; }
 
-        .ai-panel { background: #0d1117; padding: 20px; border-radius: 15px; border-right: 5px solid var(--main-gold); }
-        .log-screen { 
-            background: #000; padding: 15px; border-radius: 8px; color: #00ff41; 
-            font-family: 'Courier New', monospace; font-size: 0.85rem; height: 250px; 
-            overflow-y: auto; display: none; margin-top: 15px;
+        .terminal { 
+            background: #000; padding: 20px; border-radius: 10px; border: 1px solid var(--cyan);
+            color: #00ff41; font-family: 'Courier New', monospace; min-height: 300px; overflow-y: auto;
         }
-        .btn-action {
-            background: #161b22; color: var(--cyber-blue); border: 1px solid #30363d;
-            padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; margin-bottom: 10px;
-            text-align: right; transition: 0.3s;
-        }
-        .btn-action:hover { background: var(--cyber-blue); color: #000; }
+        .log-entry { margin-bottom: 10px; border-bottom: 1px solid #111; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="identity">🛡️ OPERATIONS: Yousif al jarah</div>
-    <div class="ai-status">● نظام الذكاء الاصطناعي 2026: متصل ونشط</div>
+    <div class="user-id">🛡️ Intelligence Director: Yousif al jarah</div>
+    <div style="font-size: 0.8rem; color: var(--cyan);">AI ANALYTICS CORE v3.0 | MARCH 2026</div>
 </header>
 
-<div class="search-sector">
-    <input type="text" id="intel-search" placeholder="ابحث عن تداعيات الصراع (مثال: الفصائل العراقية، حزب الله، إيران)...">
-    <button onclick="runSearch()" style="padding: 10px 25px; border-radius: 25px; cursor: pointer; background: var(--main-gold); border: none; font-weight: bold;">تحليل AI</button>
+<div class="search-box">
+    <input type="text" id="ai-query" placeholder="أدخل اسم الطرف (مثال: الفصائل العراقية، حزب الله، إسرائيل)...">
+    <button class="search-btn" onclick="executeAI()">تشغيل المحرك</button>
 </div>
 
-<div class="dashboard">
-    <div id="map-view"></div>
-    
-    <div class="ai-panel">
-        <h3 style="color: var(--main-gold);">🤖 وحدة التحليل الجيوسياسي</h3>
-        <button class="btn-action" onclick="analyze('iraq')">🔎 رصد تحركات الفصائل في العراق</button>
-        <button class="btn-action" onclick="analyze('lebanon')">📡 تحليل جبهة جنوب لبنان</button>
-        <button class="btn-action" onclick="analyze('iran')">☢️ سيناريو المواجهة: إيران ضد أمريكا</button>
-        <button class="btn-action" onclick="analyze('israel')">🛡️ تقييم الدفاعات الجوية الإسرائيلية</button>
-        
-        <div id="log-screen" class="log-screen"></div>
+<div class="main-frame">
+    <div id="map"></div>
+    <div class="terminal" id="terminal-out">
+        > نظام Yousif al jarah بانتظار الأوامر...
     </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // تهيئة الخريطة الاستخباراتية لعام 2026
-    var map = L.map('map-view').setView([33.0, 44.0], 5);
+    // إعداد الخريطة
+    var map = L.map('map').setView([33.3, 44.4], 5);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-    // إضافة نقاط التوتر الرئيسية
-    const targets = [
-        {name: "قواعد الفصائل (العراق)", p: [33.3, 44.4], c: "red"},
-        {name: "خط التماس (جنوب لبنان)", p: [33.1, 35.2], c: "orange"},
-        {name: "مواقع إستراتيجية (إيران)", p: [32.6, 51.6], c: "yellow"}
-    ];
-    targets.
+    // خوارزمية البحث والتحليل (الذكاء الاصطناعي الخاص بك)
+    const database = {
+        "العراق": "تنبؤ 2026: زيادة في عمليات الفصائل العراقية ضد القواعد الأمريكية. التداعيات: خطر التصعيد الإقليمي وتهديد أمن الطاقة في البصرة.",
+        "إيران": "تحليل استراتيجي: ضغط عسكري مباشر على المنشآت الحيوية. رد الفعل: إغلاق مضيق هرمز وانهيار سلاسل الإمداد العالمية.",
+        "حزب الله": "رصد ميداني: استنفار كامل على الخط الأزرق. سيناريو الحرب الشاملة سيؤدي لدمار كبير في البنية التحتية للطاقة في المنطقة.",
+        "إسرائيل": "تقييم أمني: القبة الحديدية تواجه ضغطاً غير مسبوق من 3 جبهات متزامنة. تداعيات: شلل تام في الاقتصاد الإسرائيلي.",
+        "أمريكا": "تحركات الأساطيل: الردع الأمريكي يركز على حماية ممرات التجارة، لكن خطر الانزلاق لحرب برية يزداد بنسبة 60%."
+    };
 
-
-forEach(t => L.circle(t.p, {color: t.c, radius: 100000}).addTo(map).bindPopup(t.name));
-
-    function analyze(type) {
-        const screen = document.getElementById('log-screen');
-        screen.style.display = 'block';
-        screen.innerHTML = "> جاري تفعيل خوارزمية Yousif al jarah AI...<br>> جلب بيانات الأقمار الصناعية 2026...<br>";
+    function executeAI() {
+        const query = document.getElementById('ai-query').value;
+        const out = document.getElementById('terminal-out');
+        
+        out.innerHTML = <div class='log-entry'>> جاري البحث في أرشيف Yousif al jarah...</div>;
         
         setTimeout(() => {
-            let res = "";
-            if(type === 'iraq') res = "تنبؤ: رصد تصعيد في الأنبار وبابل. استهداف القواعد الأمريكية قد يؤدي لرد جراحي سريع.";
-            if(type === 'lebanon') res = "تحليل: حزب الله يمتلك صواريخ دقيقة قادرة على تعطيل الملاحة في حيفا. خطر الحرب الشاملة: 82%.";
-            if(type === 'iran') res = "استخبارات: المواجهة المباشرة تعني إغلاق مضيق هرمز وتوقف 20% من إمدادات الطاقة العالمية.";
-            if(type === 'israel') res = "تقييم: الضغط الصاروخي المتزامن من 3 جبهات يختبر قدرة القبة الحديدية ومقلاع داوود إلى أقصى حد.";
-            screen.innerHTML += > <strong>النتيجة الاستراتيجية:</strong> ${res};
-        }, 1500);
-    }
+            let found = false;
+            for (let key in database) {
+                if (query.includes(key)) {
+                    out.innerHTML += <div class='log-entry' style='color:var(--gold)'>> تم العثور على تحليل لـ ${key}:</div>;
+                    out.innerHTML += <div class='log-entry'>> ${database[key]}</div>;
+                    found = true;
 
-    function runSearch() {
-        const q = document.getElementById('intel-search').value;
-        if(q) {
-            alert("بأمر من Yousif al jarah: جاري تحليل تداعيات " + q);
-            analyze('iraq'); // تشغيل المحاكي الافتراضي
-        }
+
+break;
+                }
+            }
+            if (!found) {
+                out.innerHTML += <div class='log-entry' style='color:red'>> خطأ: البيانات غير كافية لهذا المدخل. حاول البحث عن (العراق، إيران، حزب الله).</div>;
+            }
+        }, 1000);
     }
 </script>
+
 </body>
 </html>
