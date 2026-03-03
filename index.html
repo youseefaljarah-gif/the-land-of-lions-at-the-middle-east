@@ -32,6 +32,20 @@
         color: #c5c6c7;
     }
 
+    /* مربع البحث */
+    #search-input {
+        width: 100%;
+        max-width: 600px;
+        padding: 12px 15px;
+        margin: 20px auto;
+        display: block;
+        border-radius: 5px;
+        border: 1px solid #45a29e;
+        background: #0b0c10;
+        color: #c5c6c7;
+        font-size: 1em;
+    }
+
     /* تدفق الأخبار */
     #news-feed {
         padding: 20px;
@@ -82,6 +96,8 @@
     <p>تحليل الأحداث السياسية والجيوسياسية في المنطقة</p>
 </header>
 
+<input type="text" id="search-input" placeholder="ابحث عن إيران، إسرائيل، الولايات المتحدة...">
+
 <main id="news-feed"></main>
 
 <footer>
@@ -110,20 +126,44 @@ const newsData = [
         "title": "مؤتمر أمني دولي حول الشرق الأوسط",
         "content": "المؤتمر يناقش التهديدات الإقليمية واستراتيجيات الردع...",
         "analysis": "متوسط الاهتمام"
+    },
+    {
+        "title": "تحديثات استخباراتية عن الوضع في المنطقة",
+        "content": "معلومات استخباراتية عن تحركات القوات والتحالفات الإقليمية...",
+        "analysis": "عالي الاهتمام"
     }
 ];
 
-// عرض الأخبار على الصفحة
-const feed = document.getElementById('news-feed');
-newsData.forEach(article => {
-    const div = document.createElement('div');
-    div.className = 'news-item';
-    div.innerHTML = `
-        <h2>${article.title}</h2>
-        <p>${article.content}</p>
-        <strong>تحليل: ${article.analysis}</strong>
-    `;
-    feed.appendChild(div);
+// الدالة لعرض الأخبار
+function displayNews(filteredNews) {
+    const feed = document.getElementById('news-feed');
+    feed.innerHTML = '';
+    filteredNews.forEach(article => {
+        const div = document.createElement('div');
+        div.className = 'news-item';
+        div.innerHTML = `
+            <h2>${article.title}</h2>
+            <p>${article.content}</p>
+            <strong>تحليل: ${article.analysis}</strong>
+        `;
+        feed.appendChild(div);
+    });
+}
+
+// عرض جميع الأخبار أولًا
+displayNews(newsData);
+
+// البحث الداخلي
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+
+
+const filtered = newsData.filter(article => 
+        article.title.toLowerCase().includes(query) || 
+        article.content.toLowerCase().includes(query)
+    );
+    displayNews(filtered);
 });
 </script>
 </body>
