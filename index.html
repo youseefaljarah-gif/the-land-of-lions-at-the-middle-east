@@ -200,3 +200,42 @@ resetBtn.addEventListener('click',()=>{
 </script>
 </body>
 </html>
+<div class="map-container">
+  <!-- الخريطة القديمة مع Overlay -->
+  <img id="map" src="images/middle_east_map.png" alt="Middle East Map">
+  <canvas id="overlay" class="overlay"></canvas>
+
+  <!-- الخريطة الجديدة لدول الصراع -->
+  <svg viewBox="0 0 600 400" id="conflict-map" style="position:absolute; top:0; left:0; width:100%; height:100%;">
+    <path id="syria_svg" class="country" d="M200,50 L250,50 L250,100 L200,100 Z"></path>
+    <path id="iraq_svg" class="country" d="M250,80 L300,80 L300,130 L250,130 Z"></path>
+    <path id="yemen_svg" class="country" d="M250,250 L300,250 L300,300 L250,300 Z"></path>
+    <path id="libya_svg" class="country" d="M100,150 L150,150 L150,200 L100,200 Z"></path>
+    <path id="palestine_svg" class="country" d="M220,120 L240,120 L240,140 L220,140 Z"></path>
+  </svg>
+
+  <div id="tooltip" class="tooltip"></div>
+</div>
+
+<script>
+// التفاعل للخريطة الجديدة لدول الصراع
+const conflictCountries=[
+  {id:'syria_svg', name_ar:'سوريا', name_en:'Syria'},
+  {id:'iraq_svg', name_ar:'العراق', name_en:'Iraq'},
+  {id:'yemen_svg', name_ar:'اليمن', name_en:'Yemen'},
+  {id:'libya_svg', name_ar:'ليبيا', name_en:'Libya'},
+  {id:'palestine_svg', name_ar:'فلسطين', name_en:'Palestine'},
+];
+
+conflictCountries.forEach(c=>{
+  const el=document.getElementById(c.id);
+  el.addEventListener('mousemove',e=>{
+    const tooltip=document.getElementById('tooltip');
+    tooltip.style.display='block';
+    tooltip.style.left=e.pageX+10+'px';
+    tooltip.style.top=e.pageY+10+'px';
+    tooltip.innerText=language==='ar'?c.name_ar:c.name_en;
+  });
+  el.addEventListener('mouseleave',()=>{document.getElementById('tooltip').style.display='none';});
+});
+</script>
