@@ -3,30 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INTEL CORE SYSTEM</title>
+<title>INTEL ANALYTICS CORE</title>
 
 <style>
 body{
     margin:0;
     font-family:Consolas, monospace;
-    background:#0a0f1c;
+    background:#050a14;
     color:#00ffcc;
-    overflow:hidden;
 }
 
-/* شاشة تسجيل الدخول */
-#loginScreen{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:#0a0f1c;
+/* شاشة الدخول */
+#login{
+    height:100vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
 }
 
-#loginScreen input{
+input{
     padding:10px;
     margin:10px;
     background:#111;
@@ -35,7 +31,7 @@ body{
     width:250px;
 }
 
-#loginScreen button{
+button{
     padding:10px 20px;
     background:#00ffcc;
     border:none;
@@ -43,33 +39,38 @@ body{
     font-weight:bold;
 }
 
-#dashboard{
+#system{
     display:none;
-    height:100vh;
 }
 
-/* الشريط الجانبي */
+/* شريط علوي */
+.topbar{
+    background:#0f172a;
+    padding:15px;
+    font-weight:bold;
+}
+
+/* محتوى */
+.container{
+    display:flex;
+}
+
 .sidebar{
     width:220px;
     background:#111827;
-    height:100%;
-    float:left;
-    padding-top:20px;
-}
-
-.sidebar h2{
-    text-align:center;
-    color:#00ffcc;
+    padding:15px;
+    min-height:100vh;
 }
 
 .sidebar button{
+    display:block;
     width:100%;
-    padding:12px;
+    margin:8px 0;
     background:none;
     border:none;
     color:#ccc;
     text-align:left;
-    cursor:pointer;
+    padding:8px;
 }
 
 .sidebar button:hover{
@@ -77,120 +78,146 @@ body{
     color:#00ffcc;
 }
 
-/* المحتوى */
 .main{
-    margin-left:220px;
+    flex:1;
     padding:20px;
 }
 
 .card{
-    background:#111827;
-    padding:20px;
+    background:#0f172a;
+    padding:15px;
     margin:15px 0;
     border-left:4px solid #00ffcc;
 }
 
-.counter{
-    font-size:28px;
-    font-weight:bold;
-    color:#ff4c4c;
+.progress{
+    height:15px;
+    background:#111;
+    margin-top:10px;
 }
 
-/* تأثير خط المسح */
-.scan{
-    position:absolute;
-    width:100%;
+.progress-bar{
     height:100%;
-    pointer-events:none;
-    background:linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(0,255,204,0.05) 50%,
-        transparent 100%
-    );
-    animation:scan 5s linear infinite;
+    background:#ff4c4c;
+    width:30%;
 }
 
-@keyframes scan{
-    0%{transform:translateY(-100%);}
-    100%{transform:translateY(100%);}
+/* Terminal */
+#terminal{
+    background:#000;
+    padding:10px;
+    height:150px;
+    overflow:auto;
+    font-size:12px;
 }
 </style>
 </head>
 
 <body>
 
-<div id="loginScreen">
-    <h1>INTEL ACCESS</h1>
-    <input type="text" placeholder="Agent ID">
-    <input type="password" placeholder="Access Key">
-    <button onclick="enterSystem()">ENTER</button>
+<div id="login">
+    <h1>INTEL ACCESS NODE</h1>
+    <input type="password" id="pass" placeholder="Enter Access Key">
+    <button onclick="login()">ENTER</button>
+    <p id="error" style="color:red;"></p>
 </div>
 
-<div id="dashboard">
-    <div class="sidebar">
-        <h2>INTEL CORE</h2>
-        <button onclick="showSection('overview')">Overview</button>
-        <button onclick="showSection('operations')">Operations</button>
-        <button onclick="showSection('alerts')">Alerts</button>
-        <button onclick="logout()">Logout</button>
+<div id="system">
+    <div class="topbar">
+        STATUS: <span id="status">SECURE</span> | Threat Level: <span id="threat">LOW</span>
     </div>
 
-    <div class="main">
-        <div id="overview" class="section">
-            <div class="card">
-                Active Operations:
-                <div class="counter" id="opCounter">0</div>
-            </div>
-            <div class="card">
-                System Status: SECURE
-            </div>
+    <div class="container">
+
+        <div class="sidebar">
+            <button onclick="show('dashboard')">Dashboard</button>
+            <button onclick="show('reports')">Reports</button>
+            <button onclick="show('logs')">Live Logs</button>
+            <button onclick="logout()">Logout</button>
         </div>
 
-        <div id="operations" class="section" style="display:none;">
-            <div class="card">
-                Operation Black Dawn - Monitoring...
-            </div>
-            <div class="card">
-                Operation Silent Shield - Active...
-            </div>
-        </div>
+        <div class="main">
 
-        <div id="alerts" class="section" style="display:none;">
-            <div class="card">
-                ⚠ Suspicious network activity detected.
+            <div id="dashboard" class="section">
+                <div class="card">
+                    Active Surveillance Targets: <b id="targets">5</b>
+                </div>
+
+                <div class="card">
+                    Threat Analysis
+                    <div class="progress">
+                        <div class="progress-bar" id="threatBar"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    System Load: <span id="load">32%</span>
+                </div>
             </div>
-            <div class="card">
-                ⚠ Encrypted transmission intercepted.
+
+            <div id="reports" class="section" style="display:none;">
+                <div class="card">
+                    <b>Report 001</b><br>
+                    Regional Activity Spike detected in Sector Alpha.
+                </div>
+                <div class="card">
+                    <b>Report 002</b><br>
+                    Encrypted communications flagged for review.
+                </div>
             </div>
+
+            <div id="logs" class="section" style="display:none;">
+                <div id="terminal"></div>
+            </div>
+
         </div>
     </div>
 </div>
-
-<div class="scan"></div>
 
 <script>
-function enterSystem(){
-    document.getElementById("loginScreen").style.display="none";
-    document.getElementById("dashboard").style.display="block";
+
+const ACCESS_KEY = "intel2026";
+
+function login(){
+    let p = document.getElementById("pass").value;
+    if(p === ACCESS_KEY){
+        document.getElementById("login").style.display="none";
+        document.getElementById("system").style.display="block";
+        startSimulation();
+    } else {
+        document.getElementById("error").innerText="ACCESS DENIED";
+    }
 }
 
 function logout(){
-    document.getElementById("dashboard").style.display="none";
-    document.getElementById("loginScreen").style.display="flex";
+    location.reload();
 }
 
-function showSection(id){
+function show(id){
     document.querySelectorAll(".section").forEach(sec=>sec.style.display="none");
     document.getElementById(id).style.display="block";
 }
 
-/* عداد عمليات مباشر */
-let counter=0;
+function startSimulation(){
+
+
 setInterval(()=>{
-    counter++;
-    document.getElementById("opCounter").innerText=counter;
-},1000);
+        let threat = Math.floor(Math.random()*100);
+        document.getElementById("threatBar").style.width = threat+"%";
+        document.getElementById("threat").innerText = threat>70?"HIGH":threat>40?"MEDIUM":"LOW";
+        document.getElementById("status").innerText = threat>80?"ALERT":"SECURE";
+        document.getElementById("load").innerText = Math.floor(Math.random()*100)+"%";
+        document.getElementById("targets").innerText = Math.floor(Math.random()*10)+1;
+    },3000);
+
+    setInterval(()=>{
+        let log = "[ " + new Date().toLocaleTimeString() + " ] Scanning network traffic...";
+        let term = document.getElementById("terminal");
+        term.innerHTML += log + "<br>";
+        term.scrollTop = term.scrollHeight;
+    },2000);
+}
+
 </script>
 
 </body>
