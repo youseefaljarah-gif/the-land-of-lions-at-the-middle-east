@@ -1,170 +1,68 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>موقع البحث الاستراتيجي في الشرق الأوسط</title>
-<style>
-    /* عام */
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #0b0c10;
-        color: #c5c6c7;
-        margin: 0;
-    }
+<p><strong>طهران - مارس 2026:</strong> أعمدة الدخان تتصاعد جراء القصف الأمريكي الإسرائيلي على طهران. تدخل الحرب التي تشنها أمريكا وإسرائيل على إيران يومها الثالث في حين تتواصل التكهنات بشأن تداعياتها الدولية.</p>
+        
+        <blockquote style="border-right: 4px solid var(--primary); padding-right: 20px; font-style: italic; color: #cbd5e1;">
+            "قد تخرج إيران ضعيفة من مغامرة الرئيس ترمب، لكن جميع الأطراف ستدفع نصيباً من كلفتها." - بوليتيكو
+        </blockquote>
 
-    /* الرأس */
-    header {
-        background: #1f2833;
-        color: #66fcf1;
-        text-align: center;
-        padding: 30px 20px;
-        border-bottom: 2px solid #45a29e;
-    }
-    header h1 {
-        margin: 0;
-        font-size: 2.2em;
-        letter-spacing: 1px;
-    }
-    header p {
-        font-size: 1em;
-        margin-top: 8px;
-        color: #c5c6c7;
-    }
+        <p>وأوضح جون بولتون أن هذا التدخل قد يخلق فراغاً خطيراً في السلطة ويغرق الشرق الأوسط في الفوضى، خاصة في مضيق هرمز الذي يمر عبره 20% من إمدادات النفط العالمية.</p>
 
-    /* مربع البحث */
-    #search-input {
-        width: 100%;
-        max-width: 600px;
-        padding: 12px 15px;
-        margin: 20px auto;
-        display: block;
-        border-radius: 5px;
-        border: 1px solid #45a29e;
-        background: #0b0c10;
-        color: #c5c6c7;
-        font-size: 1em;
-    }
+        <h3>التأثير على القوى العظمى</h3>
+        <p>تشير التحليلات إلى أن هذه الحرب هي "مناورة" للضغط على الصين، بقطع إمدادات النفط الرخيص عنها، حيث اشترت بكين أكثر من 80% من شحنات النفط الإيراني عام 2025.</p>
 
-    /* تدفق الأخبار */
-    #news-feed {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        max-width: 900px;
-        margin: 0 auto;
-    }
+        <div class="share-section">
+            <p>انقر هنا للمشاركة على وسائل التواصل الاجتماعي</p>
+            <button class="btn-share" onclick="shareContent()">شارِكْ الآن</button>
+        </div>
+    </main>
 
-    .news-item {
-        background: #1f2833;
-        padding: 20px;
-        border-left: 6px solid #66fcf1;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .news-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
-    }
-    .news-item h2 {
-        color: #45a29e;
-        margin: 0 0 10px 0;
-    }
-    .news-item p {
-        color: #c5c6c7;
-        margin: 0 0 10px 0;
-    }
-    .news-item strong {
-        color: #66fcf1;
-    }
+    <aside class="sidebar">
+        <div class="intel-box">
+            <h4>خوارزمية تحليل المخاطر</h4>
+            <p style="font-size: 0.8rem; color: var(--text-gray);">مستوى التوتر الإقليمي:</p>
+            <div id="risk-meter"><div id="risk-fill"></div></div>
+            <p style="text-align: left; color: #ef4444; font-weight: bold;">85% (High Risk)</p>
+        </div>
 
-    /* الخاتمة */
-    footer {
-        text-align: center;
-        padding: 20px;
-        background: #1f2833;
-        color: #45a29e;
-        border-top: 2px solid #45a29e;
-        font-size: 0.9em;
-    }
-</style>
-</head>
-<body>
-<header>
-    <h1>موقع البحث الاستراتيجي في الشرق الأوسط</h1>
-    <p>تحليل الأحداث السياسية والجيوسياسية في المنطقة</p>
-</header>
+        <div class="intel-box">
+            <h4>الكلمات المفتاحية المرصودة</h4>
+            <div id="keywords" style="display: flex; flex-wrap: wrap; gap: 5px;">
+                </div>
+        </div>
 
-<input type="text" id="search-input" placeholder="ابحث عن إيران، إسرائيل، الولايات المتحدة...">
-
-<main id="news-feed"></main>
+        <div class="intel-box" style="background: #0ea5e91a; border-color: #0ea5e9;">
+            <h4>تحديثات ذكاء الآلة</h4>
+            <p style="font-size: 0.85rem;">تم رصد نشاط عسكري مكثف في مضيق هرمز. النظام الإيراني يركز على استراتيجية "البقاء" بدلاً من الهجوم الميداني.</p>
+        </div>
+    </aside>
+</div>
 
 <footer>
-    <p>تم تطوير الموقع بواسطة Youseef Al Jarah</p>
+    © 2026 Youseef K. | مشروع الاستخبارات السياسية - Land of Lions
 </footer>
 
 <script>
-// بيانات الأخبار (يمكن تعديلها أو إضافة المزيد)
-const newsData = [
-    {
-        "title": "تطورات جديدة في الصراع بين إيران وإسرائيل",
-        "content": "تفاصيل الأحداث الأخيرة بين إيران وإسرائيل وتأثيرها على المنطقة...",
-        "analysis": "عالي الاهتمام"
-    },
-    {
-        "title": "الولايات المتحدة تتدخل في المنطقة",
-        "content": "تحركات الولايات المتحدة الأخيرة في الشرق الأوسط واستراتيجيتها...",
-        "analysis": "متوسط الاهتمام"
-    },
-    {
-        "title": "فصائل المقاومة تعلن مواقف جديدة",
-        "content": "تصريحات فصائل المقاومة حول الوضع الراهن والتوترات الحالية...",
-        "analysis": "عالي الاهتمام"
-    },
-    {
-        "title": "مؤتمر أمني دولي حول الشرق الأوسط",
-        "content": "المؤتمر يناقش التهديدات الإقليمية واستراتيجيات الردع...",
-        "analysis": "متوسط الاهتمام"
-    },
-    {
-        "title": "تحديثات استخباراتية عن الوضع في المنطقة",
-        "content": "معلومات استخباراتية عن تحركات القوات والتحالفات الإقليمية...",
-        "analysis": "عالي الاهتمام"
+    // خوارزمية بسيطة لاستخراج الكلمات المفتاحية
+    function analyzeText() {
+        const text = document.body.innerText;
+        const keywords = ["إيران", "ترمب", "الصين", "نفط", "هرمز", "إسرائيل", "فوضى"];
+        const found = keywords.filter(word => text.includes(word));
+        
+        const container = document.getElementById('keywords');
+        found.forEach(word => {
+            const span = document.createElement('span');
+            span.style.cssText = "background:#334155; padding:2px 8px; border-radius:4px; font-size:0.75rem;";
+            span.innerText = "#" + word;
+            container.appendChild(span);
+        });
     }
-];
 
-// الدالة لعرض الأخبار
-function displayNews(filteredNews) {
-    const feed = document.getElementById('news-feed');
-    feed.innerHTML = '';
-    filteredNews.forEach(article => {
-        const div = document.createElement('div');
-        div.className = 'news-item';
-        div.innerHTML = `
-            <h2>${article.title}</h2>
-            <p>${article.content}</p>
-            <strong>تحليل: ${article.analysis}</strong>
-        `;
-        feed.appendChild(div);
-    });
-}
+    function shareContent() {
+        alert("تم نسخ رابط المقال! جاهز للمشاركة على تويتر وفيس بوك.");
+    }
 
-// عرض جميع الأخبار أولًا
-displayNews(newsData);
-
-// البحث الداخلي
-const searchInput = document.getElementById('search-input');
-searchInput.addEventListener('input', () => {
-    const query = searchInput.value.toLowerCase();
-
-
-const filtered = newsData.filter(article => 
-        article.title.toLowerCase().includes(query) || 
-        article.content.toLowerCase().includes(query)
-    );
-    displayNews(filtered);
-});
+    // تشغيل الخوارزمية عند تحميل الصفحة
+    window.onload = analyzeText;
 </script>
+
 </body>
 </html>
