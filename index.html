@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خريطة الشرق الأوسط تفاعلية</title>
+<style>
+body { font-family: sans-serif; margin:0; text-align:center; background:#f5f5f5; }
+.language-toggle { margin:15px; }
+.language-toggle button { padding:8px 16px; margin:4px; cursor:pointer; font-size:16px; }
+h1 { color:#003366; margin:5px; }
+.map-container { position:relative; display:inline-block; margin:10px auto; max-width:90%; overflow:hidden; border:2px solid #000; background:#eee; touch-action: none; }
+#map { width:100%; transform-origin: 0 0; cursor: grab; display:block; }
+.tooltip { position:absolute; background:rgba(0,0,0,0.8); color:#fff; padding:6px 12px; border-radius:6px; display:none; pointer-events:none; font-size:14px; white-space: nowrap; }
+#reset-btn { margin:10px; padding:6px 12px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="language-toggle">
+<button id="ar-btn">عربي</button>
+<button id="en-btn">English</button>
+</div>
+
+<h1 id="title">خريطة الشرق الأوسط</h1>
+
+<div class="map-container">
+<img id="map" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA... (ضع هنا Base64 للصورة)" alt="Middle East Map">
+<div id="tooltip" class="tooltip"></div>
+</div>
+
+<button id="reset-btn">إعادة الخريطة</button>
+
+<script>
+const map = document.getElementById('map');
+const tooltip = document.getElementById('tooltip');
+const title = document.getElementById('title');
+const arBtn = document.getElementById('ar-btn');
+const enBtn = document.getElementById('en-btn');
+const resetBtn = document.getElementById('reset-btn');
+
+let language = 'ar';
+
+// بيانات الدول (إحداثيات تقريبية)
+const countries = [
+{name_ar:'العراق', name_en:'Iraq', capital_ar:'بغداد', capital_en:'Baghdad', population:'40M', x:400, y:150},
+{name_ar:'السعودية', name_en:'Saudi Arabia', capital_ar:'الرياض', capital_en:'Riyadh', population:'35M', x:400, y:300},
+{name_ar:'إيران', name_en:'Iran', capital_ar:'طهران', capital_en:'Tehran', population:'85M', x:500, y:120},
+{name_ar:'سوريا', name_en:'Syria', capital_ar:'دمشق', capital_en:'Damascus', population:'18M', x:350, y:100},
+{name_ar:'الأردن', name_en:'Jordan', capital_ar:'عمان', capital_en:'Amman', population:'10M', x:300, y:150},
+];
+
+// Tooltip
+map.addEventListener('mousemove',(e)=>{
+const rect=map.getBoundingClientRect();
+const mouseX=e.clientX-rect.left;
+const mouseY=e.clientY-rect.top;
+let found=false;
+countries.forEach(country=>{
+if(Math.abs(mouseX-country.x)<30 && Math.abs(mouseY-country.y)<30){
+tooltip.style.display='block';
+tooltip.style.left=(country.x+10)+'px';
+tooltip.style.top=(country.y+10)+'px';
+tooltip.innerHTML=language==='ar'? 
+`${country.name_ar}<br>العاصمة: ${country.capital_ar}<br>السكان: ${country.population}` :
+`${country.name_en}<br>Capital: ${country.capital_en}<br>Population: ${country.population}`;
+found=true;
+}
+});
+if(!found){tooltip.style.display='none';}
+});
+
+// اللغة
+arBtn.addEventListener('click',()=>{language='ar'; title.innerText='خريطة الشرق الأوسط';});
+enBtn.addEventListener('click',()=>{language='en'; title.innerText='Middle East Map';});
+
+// Zoom & Pan
+let scale=1, originX=0, originY=0, startX=0, startY=0, dragging=false;
+
+map.addEventListener('wheel',(e)=>{
+e.preventDefault();
+const delta = e.deltaY>0?-0.1:0.1;
+scale=Math.min(Math.max(0.5,scale+delta),3);
+map.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;
+});
+
+map.addEventListener('mousedown',(e)=>{dragging=true; startX=e.clientX-originX; startY=e.clientY-originY; map.style.cursor='grabbing';});
+map.addEventListener('mouseup',()=>{dragging=false; map.style.cursor='grab';});
+map.addEventListener('mouseleave',()=>{dragging=false; map.style.cursor='grab';});
+map.addEventListener('mousemove',(e)=>{
+if(dragging){originX=e.clientX-startX; originY=e.clientY-startY; map.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;}
+});
+
+// إعادة الخريطة
+resetBtn.addEventListener('click',()=>{
+scale=1; originX=0; originY=0;
+map.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;
+});
+
+</script>
+
+</body>
+</html>
