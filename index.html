@@ -1,0 +1,57 @@
+<span class="blink">></span> بانتظار تلقي الأوامر من المدير Yousif al jarah...
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    // إعداد الساعة والخريطة
+    setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
+    var map = L.map('map', {zoomControl: false}).setView([33.0, 44.0], 5);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+    // قاعدة البيانات الخوارزمية (Logic Database)
+    const intelDB = {
+        "إيران": {
+            desc: "تفعيل بروتوكول الردع النووي. تداعيات: ضربات متبادلة في العمق الإيراني-الإسرائيلي.",
+            econ: "إغلاق مضيق هرمز: أسعار النفط تتجاوز 160$. توقف خطوط الملاحة الشرقية.",
+            coords: [32.6, 51.6]
+        },
+        "الفصائل": {
+            desc: "تحرك واسع في الأنبار وبابل. استهداف مباشر لقواعد التنف وعين الأسد.",
+            econ: "توقف تصدير النفط عبر الأنبوب الشمالي. زيادة تكلفة التأمين على الناقلات في الخليج.",
+            coords: [33.3, 44.4]
+        },
+        "حزب الله": {
+            desc: "فتح جبهة الجليل. استخدام صواريخ دقيقة ضد منشآت الغاز في المتوسط.",
+            econ: "شلل تام في موانئ حيفا وأشدود. خسائر اقتصادية بمليارات الدولارات يومياً.",
+            coords: [33.8, 35.5]
+        }
+    };
+
+    function runAlgorithm() {
+        const query = document.getElementById('intel-query').value;
+        const consoleOut = document.getElementById('console-out');
+        const econOut = document.getElementById('econ-data');
+        
+        consoleOut.innerHTML = <span class='blink'>></span> جارٍ تشغيل خوارزمية Yousif al jarah لربط التداعيات الجيوسياسية...<br>;
+        
+        setTimeout(() => {
+            let found = false;
+            for (let key in intelDB) {
+                if (query.includes(key)) {
+                    const data = intelDB[key];
+                    consoleOut.innerHTML += > [SUCCESS] تم تحديد الكيان: ${key}<br>> التقرير الأمني: ${data.desc};
+                    econOut.innerHTML = <strong>التحليل الاقتصادي لـ ${key}:</strong><br>${data.econ};
+                    map.flyTo(data.coords, 7);
+                    L.circle(data.coords, {color: 'red', radius: 200000}).addTo(map);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                consoleOut.innerHTML += > [ERROR] المدخلات غير مدرجة في قاعدة البيانات الحالية. حاول (إيران، الفصائل، حزب الله).;
+            }
+        }, 800);
+    }
+</script>
+</body>
+</html>
