@@ -1,57 +1,149 @@
-<span class="blink">></span> بانتظار تلقي الأوامر من المدير Yousif al jarah...
-</div>
+geoPoliticalSite/
+├─ backend/
+│  ├─ server.js
+│  └─ analyze.js
+├─ frontend/
+│  ├─ public/
+│  └─ src/
+│     ├─ App.js
+│     ├─ components/
+│     │   ├─ Header.js
+│     │   ├─ NewsFeed.js
+│     │   └─ Footer.js
+│     └─ styles.css
+└─ package.jsonconst express = require('express');
+const cors = require('cors');
+const { analyzeNews } = require('./analyze');
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-    // إعداد الساعة والخريطة
-    setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
-    var map = L.map('map', {zoomControl: false}).setView([33.0, 44.0], 5);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-    // قاعدة البيانات الخوارزمية (Logic Database)
-    const intelDB = {
-        "إيران": {
-            desc: "تفعيل بروتوكول الردع النووي. تداعيات: ضربات متبادلة في العمق الإيراني-الإسرائيلي.",
-            econ: "إغلاق مضيق هرمز: أسعار النفط تتجاوز 160$. توقف خطوط الملاحة الشرقية.",
-            coords: [32.6, 51.6]
-        },
-        "الفصائل": {
-            desc: "تحرك واسع في الأنبار وبابل. استهداف مباشر لقواعد التنف وعين الأسد.",
-            econ: "توقف تصدير النفط عبر الأنبوب الشمالي. زيادة تكلفة التأمين على الناقلات في الخليج.",
-            coords: [33.3, 44.4]
-        },
-        "حزب الله": {
-            desc: "فتح جبهة الجليل. استخدام صواريخ دقيقة ضد منشآت الغاز في المتوسط.",
-            econ: "شلل تام في موانئ حيفا وأشدود. خسائر اقتصادية بمليارات الدولارات يومياً.",
-            coords: [33.8, 35.5]
-        }
+const PORT = 5000;
+
+// نموذج endpoint لجلب الأخبار وتحليلها
+app.get('/api/news', async (req, res) => {
+    // هنا يمكن إضافة كود لجلب الأخبار من RSS أو API إخباري
+    const dummyNews = [
+        { title: "تطورات جديدة في الصراع بين إيران وإسرائيل", content: "تفاصيل الأحداث..." },
+        { title: "الولايات المتحدة تتدخل في المنطقة", content: "تفاصيل التدخل..." },
+    ];
+
+    const analyzed = dummyNews.map(article => analyzeNews(article));
+    res.json(analyzed);
+});
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));// خوارزمية بسيطة لتحليل النصوص السياسية
+function analyzeNews(article) {
+    // تقييم المحتوى بشكل أولي
+    const keywords = ["إيران", "إسرائيل", "الولايات المتحدة", "فصائل المقاومة"];
+    let score = 0;
+    keywords.forEach(word => {
+        if (article.content.includes(word)) score += 1;
+    });
+
+    let sentiment = score >= 2 ? "عالي الاهتمام" : "متوسط الاهتمام";
+
+    return {
+        title: article.title,
+        content: article.content,
+        analysis: sentiment
     };
+}
 
-    function runAlgorithm() {
-        const query = document.getElementById('intel-query').value;
-        const consoleOut = document.getElementById('console-out');
-        const econOut = document.getElementById('econ-data');
-        
-        consoleOut.innerHTML = <span class='blink'>></span> جارٍ تشغيل خوارزمية Yousif al jarah لربط التداعيات الجيوسياسية...<br>;
-        
-        setTimeout(() => {
-            let found = false;
-            for (let key in intelDB) {
-                if (query.includes(key)) {
-                    const data = intelDB[key];
-                    consoleOut.innerHTML += > [SUCCESS] تم تحديد الكيان: ${key}<br>> التقرير الأمني: ${data.desc};
-                    econOut.innerHTML = <strong>التحليل الاقتصادي لـ ${key}:</strong><br>${data.econ};
-                    map.flyTo(data.coords, 7);
-                    L.circle(data.coords, {color: 'red', radius: 200000}).addTo(map);
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                consoleOut.innerHTML += > [ERROR] المدخلات غير مدرجة في قاعدة البيانات الحالية. حاول (إيران، الفصائل، حزب الله).;
-            }
-        }, 800);
-    }
-</script>
-</body>
-</html>
+module.exports = { analyzeNews };mport React, { useEffect, useState } from 'react';
+import './styles.css';
+import Header from './components/Header';
+import NewsFeed from './components/NewsFeed';
+import Footer from './components/Footer';
+
+function App() {
+    const [news, setNews] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/news')
+            .then(res => res.json())
+            .then(data => setNews(data))
+            .catch(err => console.log(err));
+    }, []);
+
+    return (
+        <div className="app">
+            <Header />
+            <NewsFeed news={news} />
+            <Footer author="Your Name" />
+        </div>
+    );
+}
+
+export default App;import React from 'react';
+
+function Header() {
+    return (
+        <header className="header">
+            <h1>موقع البحث الاستراتيجي في الشرق الأوسط</h1>
+            <p>تحليل الأحداث السياسية والجيوسياسية في المنطقة</p>
+        </header>
+    );
+}
+
+export default Header;import React from 'react';
+
+function NewsFeed({ news }) {
+    return (
+        <div className="news-feed">
+            {news.map((article, index) => (
+                <div key={index} className="news-item">
+                    <h2>{article.title}</h2>
+                    <p>{article.content}</p>
+                    <strong>تحليل: {article.analysis}</strong>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+export default NewsFeed;import React from 'react';
+
+function Footer({ author }) {
+    return (
+        <footer className="footer">
+            <p>تم تطوير الموقع بواسطة {author}</p>
+        </footer>
+    );
+}
+
+export default Footer;body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+    margin: 0;
+}
+
+.header {
+    background: #003366;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.news-feed {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.news-item {
+    background: #fff;
+    padding: 15px;
+    border-left: 5px solid #cc0000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.footer {
+    text-align: center;
+    padding: 15px;
+    background: #003366;
+    color: #fff;
+}
