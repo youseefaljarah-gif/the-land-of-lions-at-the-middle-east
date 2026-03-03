@@ -4,39 +4,28 @@ function show(id){
 }
 show("overview");
 
-setInterval(()=>{
-    let risk = Math.floor(Math.random()*100);
-    document.getElementById("threatBar").style.width=risk+"%";
-    document.getElementById("tension").innerText =
-        risk>70?"مرتفع":risk>40?"متوسط":"منخفض";
-    document.getElementById("probability").innerText =
-        (30 + Math.floor(Math.random()*50))+"%";
-},4000);
+function updateTension(){
+    fetch("http://127.0.0.1:5000/tension")
+    .then(res=>res.json())
+    .then(data=>{
+        document.getElementById("tension").innerText = data.level + " (" + data.score + ")";
+        document.getElementById("tensionBar").style.width = data.score + "%";
+        let log = document.getElementById("logBox");
+        log.innerHTML += "[ " + new Date().toLocaleTimeString() + " ] تم// ذكاء اصطناعي أسئلة وأجوبة
+function askAI(){
+    const question = document.getElementById("userQuestion").value;
+    if(question.trim() === ""){
+        document.getElementById("aiAnswer").innerText="الرجاء كتابة سؤال.";
+        return;
+    }
 
-setInterval(()=>{
-    let log=document.getElementById("logBox");
-    log.innerHTML+="[ "+new Date().toLocaleTimeString()+" ] تحديث تقييم المخاطر...<br>";
-    log.scrollTop=log.scrollHeight;
-},3000);
-
-
-function show(id){
-    document.querySelectorAll(".section").forEach(s=>s.style.display="none");
-    document.getElementById(id).style.display="block";
+    fetch("http://127.0.0.1:5000/ask?question=" + encodeURIComponent(question))
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("aiAnswer").innerText = data.answer;
+    })
+    .catch(err=>{
+        document.getElementById("aiAnswer").innerText = "خطأ في الاتصال بالذكاء الاصطناعي";
+        console.error(err);
+    });
 }
-show("overview");
-
-setInterval(()=>{
-    let risk = Math.floor(Math.random()*100);
-    document.getElementById("threatBar").style.width=risk+"%";
-    document.getElementById("tension").innerText =
-        risk>70?"مرتفع":risk>40?"متوسط":"منخفض";
-    document.getElementById("probability").innerText =
-        (30 + Math.floor(Math.random()*50))+"%";
-},4000);
-
-setInterval(()=>{
-    let log=document.getElementById("logBox");
-    log.innerHTML+="[ "+new Date().toLocaleTimeString()+" ] تحديث تقييم المخاطر...<br>";
-    log.scrollTop=log.scrollHeight;
-},3000);
