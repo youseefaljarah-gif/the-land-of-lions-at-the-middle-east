@@ -1,86 +1,130 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع البحث الاستراتيجي في الشرق الأوسط</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-            margin: 0;
-        }
-        header {
-            background: #003366;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-        #news-feed {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .news-item {
-            background: #fff;
-            padding: 15px;
-            border-left: 5px solid #cc0000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            background: #003366;
-            color: #fff;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موقع البحث الاستراتيجي في الشرق الأوسط</title>
+<style>
+    /* عام */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #0b0c10;
+        color: #c5c6c7;
+        margin: 0;
+    }
+
+    /* الرأس */
+    header {
+        background: #1f2833;
+        color: #66fcf1;
+        text-align: center;
+        padding: 30px 20px;
+        border-bottom: 2px solid #45a29e;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 2.2em;
+        letter-spacing: 1px;
+    }
+    header p {
+        font-size: 1em;
+        margin-top: 8px;
+        color: #c5c6c7;
+    }
+
+    /* تدفق الأخبار */
+    #news-feed {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .news-item {
+        background: #1f2833;
+        padding: 20px;
+        border-left: 6px solid #66fcf1;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
+    }
+    .news-item h2 {
+        color: #45a29e;
+        margin: 0 0 10px 0;
+    }
+    .news-item p {
+        color: #c5c6c7;
+        margin: 0 0 10px 0;
+    }
+    .news-item strong {
+        color: #66fcf1;
+    }
+
+    /* الخاتمة */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: #1f2833;
+        color: #45a29e;
+        border-top: 2px solid #45a29e;
+        font-size: 0.9em;
+    }
+</style>
 </head>
 <body>
-    <header>
-        <h1>موقع البحث الاستراتيجي في الشرق الأوسط</h1>
-        <p>تحليل الأحداث السياسية والجيوسياسية في المنطقة</p>
-    </header>
+<header>
+    <h1>موقع البحث الاستراتيجي في الشرق الأوسط</h1>
+    <p>تحليل الأحداث السياسية والجيوسياسية في المنطقة</p>
+</header>
 
-    <main id="news-feed"></main>
+<main id="news-feed"></main>
 
-    <footer>
-        <p>تم تطوير الموقع بواسطة Youseef Al Jarah</p>
-    </footer>
+<footer>
+    <p>تم تطوير الموقع بواسطة Youseef Al Jarah</p>
+</footer>
 
-    <script>
-        // بيانات الأخبار مدمجة مباشرة داخل الكود
-        const newsData = [
-            {
-                "title": "تطورات جديدة في الصراع بين إيران وإسرائيل",
-                "content": "تفاصيل الأحداث الأخيرة بين إيران وإسرائيل...",
-                "analysis": "عالي الاهتمام"
-            },
-            {
-                "title": "الولايات المتحدة تتدخل في المنطقة",
-                "content": "تحركات الولايات المتحدة الأخيرة في الشرق الأوسط...",
-                "analysis": "متوسط الاهتمام"
-            },
-            {
-                "title": "فصائل المقاومة تعلن مواقف جديدة",
-                "content": "تصريحات فصائل المقاومة حول الوضع الراهن...",
-                "analysis": "عالي الاهتمام"
-            }
-        ];
+<script>
+// بيانات الأخبار (يمكن تعديلها أو إضافة المزيد)
+const newsData = [
+    {
+        "title": "تطورات جديدة في الصراع بين إيران وإسرائيل",
+        "content": "تفاصيل الأحداث الأخيرة بين إيران وإسرائيل وتأثيرها على المنطقة...",
+        "analysis": "عالي الاهتمام"
+    },
+    {
+        "title": "الولايات المتحدة تتدخل في المنطقة",
+        "content": "تحركات الولايات المتحدة الأخيرة في الشرق الأوسط واستراتيجيتها...",
+        "analysis": "متوسط الاهتمام"
+    },
+    {
+        "title": "فصائل المقاومة تعلن مواقف جديدة",
+        "content": "تصريحات فصائل المقاومة حول الوضع الراهن والتوترات الحالية...",
+        "analysis": "عالي الاهتمام"
+    },
+    {
+        "title": "مؤتمر أمني دولي حول الشرق الأوسط",
+        "content": "المؤتمر يناقش التهديدات الإقليمية واستراتيجيات الردع...",
+        "analysis": "متوسط الاهتمام"
+    }
+];
 
-        // عرض الأخبار على الصفحة
-        const feed = document.getElementById('news-feed');
-        newsData.forEach(article => {
-            const div = document.createElement('div');
-            div.className = 'news-item';
-            div.innerHTML = `
-                <h2>${article.title}</h2>
-                <p>${article.content}</p>
-                <strong>تحليل: ${article.analysis}</strong>
-            `;
-            feed.appendChild(div);
-        });
-    </script>
+// عرض الأخبار على الصفحة
+const feed = document.getElementById('news-feed');
+newsData.forEach(article => {
+    const div = document.createElement('div');
+    div.className = 'news-item';
+    div.innerHTML = `
+        <h2>${article.title}</h2>
+        <p>${article.content}</p>
+        <strong>تحليل: ${article.analysis}</strong>
+    `;
+    feed.appendChild(div);
+});
+</script>
 </body>
 </html>
