@@ -1,0 +1,101 @@
+body{
+    margin:0;
+    font-family:Consolas;
+    background:#0a0f1c;
+    color:#00ffcc;
+}
+
+#login{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+input{
+    padding:10px;
+    margin:10px;
+    background:#111;
+    border:1px solid #00ffcc;
+    color:#00ffcc;
+}
+
+button{
+    padding:10px;
+    background:#00ffcc;
+    border:none;
+    cursor:pointer;
+}
+
+#error{
+    color:red;
+}
+
+#system{
+    display:none;
+}
+
+.topbar{
+    background:#111827;
+    padding:15px;
+}
+
+.container{
+    display:flex;
+}
+
+.sidebar{
+    width:220px;
+    background:#111;
+    min-height:100vh;
+    padding:10px;
+}
+
+.sidebar button{
+    display:block;
+    width:100%;
+    margin:5px 0;
+    background:none;
+    border:none;
+    color:#ccc;
+    text-align:left;
+}
+
+.sidebar button:hover{
+    color:#00ffcc;
+}
+
+.main{
+    flex:1;
+    padding:20px;
+}
+
+.card{
+    background:#111827;
+    padding:15px;
+    margin:10px 0;
+}
+
+.progress{
+    height:20px;
+    background:#111;
+    width:100%;
+}
+
+#bar{
+    height:100%;
+    width:30%;
+    background:red;
+}
+
+#terminal{
+    background:black;
+    height:200px;
+    overflow:auto;
+    padding:10px;
+    font-size:12px;
+}
+.section{
+    display:none;
+}
