@@ -1,67 +1,229 @@
-<p><strong>طهران - مارس 2026:</strong> أعمدة الدخان تتصاعد جراء القصف الأمريكي الإسرائيلي على طهران. تدخل الحرب التي تشنها أمريكا وإسرائيل على إيران يومها الثالث في حين تتواصل التكهنات بشأن تداعياتها الدولية.</p>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Land of Lions | تحليل استراتيجي</title>
+    <style>
+        :root {
+            --gold: #f59e0b;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --danger: #ef4444;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: white;
+            line-height: 1.8;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* لجعل كل شيء في المنتصف طولي */
+        }
+
+        /* الملاحة */
+        nav {
+            width: 100%;
+            background: #111827;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav h2 { color: var(--gold); margin: 0; font-size: 1.4rem; }
+
+        /* الحاوية الطولية */
+        .main-wrapper {
+            width: 90%;
+            max-width: 800px; /* عرض مناسب للقراءة الطولية */
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column; /* ترتيب طولي */
+            gap: 25px;
+        }
+
+        /* أقسام الصفحة */
+        section {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .news-header {
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 15px;
+        }
+
+        .news-header h1 {
+            font-size: 1.8rem;
+            margin: 10px 0;
+            color: #fff;
+        }
+
+        .meta-info {
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        /* صورة الخبر */
+        .image-box {
+            width: 100%;
+            height: 250px;
+            background: #000 url('https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?auto=format&fit=crop&q=80') center/cover;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        /* لوحة الخوارزمية */
+        .algo-panel {
+            background: #111827;
+            border: 1px solid var(--gold);
+            text-align: center;
+        }
+
+        .risk-meter-container {
+            background: #334155;
+            height: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        #riskFill {
+            width: 0%; /* سيعمل بالجافا سكريبت */
+            height: 100%;
+            background: linear-gradient(to left, var(--danger), var(--gold));
+            transition: width 2s ease-in-out;
+        }
+
+        /* الكلمات المفتاحية */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .keyword-tag {
+            background: var(--gold);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .share-btn {
+            display: block;
+            width: 100%;
+            background: var(--gold);
+            color: #000;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+        }
+
+        footer {
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav>
+    <h2>The Land of Lions</h2>
+</nav>
+
+<div class="main-wrapper">
+
+
+<section class="news-header">
+        <span class="meta-info">تاريخ النشر: 2026/03/02 | رقم التحليل: #INT-990</span>
+        <h1>مغامرة ترمب قد تضعف إيران لكنها تهز الخليج وتستهدف الصين</h1>
+    </section>
+
+    <div class="image-box">
+        <div style="background: rgba(0,0,0,0.7); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem;">
+            أعمدة الدخان تتصاعد جراء القصف الأمريكي الإسرائيلي على طهران
+        </div>
+    </div>
+
+    <section class="algo-panel">
+        <h3 style="margin-top:0;">📊 خوارزمية تحليل التهديد</h3>
+        <p>مستوى الخطر الإقليمي المتوقع:</p>
+        <div class="risk-meter-container">
+            <div id="riskFill"></div>
+        </div>
+        <div id="riskStatus" style="font-weight: bold; color: var(--danger);">جاري تحليل البيانات...</div>
         
-        <blockquote style="border-right: 4px solid var(--primary); padding-right: 20px; font-style: italic; color: #cbd5e1;">
-            "قد تخرج إيران ضعيفة من مغامرة الرئيس ترمب، لكن جميع الأطراف ستدفع نصيباً من كلفتها." - بوليتيكو
-        </blockquote>
+        <div class="tags-container" id="tags">
+            </div>
+    </section>
 
-        <p>وأوضح جون بولتون أن هذا التدخل قد يخلق فراغاً خطيراً في السلطة ويغرق الشرق الأوسط في الفوضى، خاصة في مضيق هرمز الذي يمر عبره 20% من إمدادات النفط العالمية.</p>
+    <section>
+        <p>تدخل الحرب التي تشنها أمريكا وإسرائيل على إيران يومها الثالث في حين تتواصل التكهنات والتقييمات بشأن حيثياتها وشرعيتها ومجرياتها وتداعياتها داخليا وإقليميا ودوليا.</p>
+        
+        <p>تشير أغلب التحليلات إلى أن إيران قد تخرج ضعيفة من "مغامرة" الرئيس الأمريكي دونالد ترمب، وفق تعبير موقع بوليتيكو، لكن جميع الأطراف ستدفع نصيبا من كلفتها.</p>
+        
+        <p><strong>تأثير الصين:</strong> الخبير مادي كاباروف يرى أن هدف أمريكا هو "قطع المصدر الرئيسي للنفط الرخيص عن الصين"، حيث اشترت بكين 80% من إنتاج إيران في 2025.</p>
+        
+        <button class="share-btn" onclick="shareNow()">شارِكْ على وسائل التواصل الاجتماعي</button>
+    </section>
 
-        <h3>التأثير على القوى العظمى</h3>
-        <p>تشير التحليلات إلى أن هذه الحرب هي "مناورة" للضغط على الصين، بقطع إمدادات النفط الرخيص عنها، حيث اشترت بكين أكثر من 80% من شحنات النفط الإيراني عام 2025.</p>
-
-        <div class="share-section">
-            <p>انقر هنا للمشاركة على وسائل التواصل الاجتماعي</p>
-            <button class="btn-share" onclick="shareContent()">شارِكْ الآن</button>
-        </div>
-    </main>
-
-    <aside class="sidebar">
-        <div class="intel-box">
-            <h4>خوارزمية تحليل المخاطر</h4>
-            <p style="font-size: 0.8rem; color: var(--text-gray);">مستوى التوتر الإقليمي:</p>
-            <div id="risk-meter"><div id="risk-fill"></div></div>
-            <p style="text-align: left; color: #ef4444; font-weight: bold;">85% (High Risk)</p>
-        </div>
-
-        <div class="intel-box">
-            <h4>الكلمات المفتاحية المرصودة</h4>
-            <div id="keywords" style="display: flex; flex-wrap: wrap; gap: 5px;">
-                </div>
-        </div>
-
-        <div class="intel-box" style="background: #0ea5e91a; border-color: #0ea5e9;">
-            <h4>تحديثات ذكاء الآلة</h4>
-            <p style="font-size: 0.85rem;">تم رصد نشاط عسكري مكثف في مضيق هرمز. النظام الإيراني يركز على استراتيجية "البقاء" بدلاً من الهجوم الميداني.</p>
-        </div>
-    </aside>
 </div>
 
 <footer>
-    © 2026 Youseef K. | مشروع الاستخبارات السياسية - Land of Lions
+    © 2026 Youseef K. | جميع الحقوق محفوظة لمحرك Land of Lions
 </footer>
 
 <script>
-    // خوارزمية بسيطة لاستخراج الكلمات المفتاحية
-    function analyzeText() {
-        const text = document.body.innerText;
-        const keywords = ["إيران", "ترمب", "الصين", "نفط", "هرمز", "إسرائيل", "فوضى"];
-        const found = keywords.filter(word => text.includes(word));
+    // عند تحميل الصفحة، تبدأ "الخوارزميات" بالعمل
+    window.onload = function() {
         
-        const container = document.getElementById('keywords');
-        found.forEach(word => {
-            const span = document.createElement('span');
-            span.style.cssText = "background:#334155; padding:2px 8px; border-radius:4px; font-size:0.75rem;";
-            span.innerText = "#" + word;
-            container.appendChild(span);
+        // 1. تحريك شريط المخاطر
+        setTimeout(() => {
+            document.getElementById('riskFill').style.width = '92%';
+            document.getElementById('riskStatus').innerText = 'تنبيه: خطر مرتفع جداً (92%)';
+        }, 500);
+
+        // 2. خوارزمية توليد الكلمات المفتاحية
+        const newsKeywords = ["إيران", "ترمب", "نفط", "الصين", "مضيق هرمز", "بولتون"];
+        const tagsDiv = document.getElementById('tags');
+
+        newsKeywords.forEach(word => {
+            let tag = document.createElement('span');
+            tag.className = 'keyword-tag';
+            tag.innerText = "#" + word;
+            tagsDiv.appendChild(tag);
         });
-    }
+    };
 
-    function shareContent() {
-        alert("تم نسخ رابط المقال! جاهز للمشاركة على تويتر وفيس بوك.");
+    function shareNow() {
+        alert("تم نسخ الرابط! يمكنك الآن مشاركة التحليل.");
     }
-
-    // تشغيل الخوارزمية عند تحميل الصفحة
-    window.onload = analyzeText;
 </script>
 
 </body>
