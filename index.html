@@ -1,172 +1,60 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INTEL ANALYTICS CORE</title>
-
-<style>
-body{
-    margin:0;
-    font-family:Consolas, monospace;
-    background:#050a14;
-    color:#00ffcc;
-}
-
-/* شاشة الدخول */
-#login{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-
-input{
-    padding:10px;
-    margin:10px;
-    background:#111;
-    border:1px solid #00ffcc;
-    color:#00ffcc;
-    width:250px;
-}
-
-button{
-    padding:10px 20px;
-    background:#00ffcc;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-#system{
-    display:none;
-}
-
-/* شريط علوي */
-.topbar{
-    background:#0f172a;
-    padding:15px;
-    font-weight:bold;
-}
-
-/* محتوى */
-.container{
-    display:flex;
-}
-
-.sidebar{
-    width:220px;
-    background:#111827;
-    padding:15px;
-    min-height:100vh;
-}
-
-.sidebar button{
-    display:block;
-    width:100%;
-    margin:8px 0;
-    background:none;
-    border:none;
-    color:#ccc;
-    text-align:left;
-    padding:8px;
-}
-
-.sidebar button:hover{
-    background:#00ffcc22;
-    color:#00ffcc;
-}
-
-.main{
-    flex:1;
-    padding:20px;
-}
-
-.card{
-    background:#0f172a;
-    padding:15px;
-    margin:15px 0;
-    border-left:4px solid #00ffcc;
-}
-
-.progress{
-    height:15px;
-    background:#111;
-    margin-top:10px;
-}
-
-.progress-bar{
-    height:100%;
-    background:#ff4c4c;
-    width:30%;
-}
-
-/* Terminal */
-#terminal{
-    background:#000;
-    padding:10px;
-    height:150px;
-    overflow:auto;
-    font-size:12px;
-}
-</style>
+<title>INTEL CORE SYSTEM</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div id="login">
-    <h1>INTEL ACCESS NODE</h1>
-    <input type="password" id="pass" placeholder="Enter Access Key">
+    <h1>INTEL CORE ACCESS</h1>
+    <input type="password" id="password" placeholder="Access Key">
     <button onclick="login()">ENTER</button>
-    <p id="error" style="color:red;"></p>
+    <p id="error"></p>
 </div>
 
 <div id="system">
+
     <div class="topbar">
-        STATUS: <span id="status">SECURE</span> | Threat Level: <span id="threat">LOW</span>
+        SYSTEM STATUS: <span id="status">SECURE</span>
+        | THREAT LEVEL: <span id="threatLevel">LOW</span>
     </div>
 
     <div class="container">
 
         <div class="sidebar">
-            <button onclick="show('dashboard')">Dashboard</button>
-            <button onclick="show('reports')">Reports</button>
-            <button onclick="show('logs')">Live Logs</button>
+            <button onclick="showSection('dashboard')">Dashboard</button>
+            <button onclick="showSection('analysis')">Threat Analysis</button>
+            <button onclick="showSection('database')">Database</button>
+            <button onclick="showSection('logs')">Live Logs</button>
             <button onclick="logout()">Logout</button>
         </div>
 
         <div class="main">
 
             <div id="dashboard" class="section">
-                <div class="card">
-                    Active Surveillance Targets: <b id="targets">5</b>
-                </div>
+                <h2>Operational Overview</h2>
+                <div class="card">Active Targets: <span id="targets">5</span></div>
+                <div class="card">System Load: <span id="load">30%</span></div>
+            </div>
 
-                <div class="card">
-                    Threat Analysis
-                    <div class="progress">
-                        <div class="progress-bar" id="threatBar"></div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    System Load: <span id="load">32%</span>
+            <div id="analysis" class="section">
+                <h2>Threat Percentage</h2>
+                <div class="progress">
+                    <div id="bar"></div>
                 </div>
             </div>
 
-            <div id="reports" class="section" style="display:none;">
-                <div class="card">
-                    <b>Report 001</b><br>
-                    Regional Activity Spike detected in Sector Alpha.
-                </div>
-                <div class="card">
-                    <b>Report 002</b><br>
-                    Encrypted communications flagged for review.
-                </div>
+            <div id="database" class="section">
+                <h2>Internal Records</h2>
+                <ul id="records"></ul>
             </div>
 
-            <div id="logs" class="section" style="display:none;">
+            <div id="logs" class="section">
+                <h2>Live Activity Logs</h2>
                 <div id="terminal"></div>
             </div>
 
@@ -174,51 +62,6 @@ button{
     </div>
 </div>
 
-<script>
-
-const ACCESS_KEY = "intel2026";
-
-function login(){
-    let p = document.getElementById("pass").value;
-    if(p === ACCESS_KEY){
-        document.getElementById("login").style.display="none";
-        document.getElementById("system").style.display="block";
-        startSimulation();
-    } else {
-        document.getElementById("error").innerText="ACCESS DENIED";
-    }
-}
-
-function logout(){
-    location.reload();
-}
-
-function show(id){
-    document.querySelectorAll(".section").forEach(sec=>sec.style.display="none");
-    document.getElementById(id).style.display="block";
-}
-
-function startSimulation(){
-
-
-setInterval(()=>{
-        let threat = Math.floor(Math.random()*100);
-        document.getElementById("threatBar").style.width = threat+"%";
-        document.getElementById("threat").innerText = threat>70?"HIGH":threat>40?"MEDIUM":"LOW";
-        document.getElementById("status").innerText = threat>80?"ALERT":"SECURE";
-        document.getElementById("load").innerText = Math.floor(Math.random()*100)+"%";
-        document.getElementById("targets").innerText = Math.floor(Math.random()*10)+1;
-    },3000);
-
-    setInterval(()=>{
-        let log = "[ " + new Date().toLocaleTimeString() + " ] Scanning network traffic...";
-        let term = document.getElementById("terminal");
-        term.innerHTML += log + "<br>";
-        term.scrollTop = term.scrollHeight;
-    },2000);
-}
-
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
