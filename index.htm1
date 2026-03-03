@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خريطة الشرق الأوسط</title>
+<style>
+body { font-family: sans-serif; margin:0; text-align:center; background:#f5f5f5; }
+.language-toggle { margin:20px; }
+.language-toggle button { padding:10px 20px; margin:5px; cursor:pointer; font-size:16px; }
+h1 { color:#003366; }
+.map-container { position:relative; display:inline-block; margin:20px auto; max-width:90%; }
+.map-container img { width:100%; border:2px solid #000; }
+.tooltip { position:absolute; background:rgba(0,0,0,0.8); color:#fff; padding:5px 10px; border-radius:5px; display:none; pointer-events:none; font-size:14px; }
+</style>
+</head>
+<body>
+
+<div class="language-toggle">
+<button id="ar-btn">عربي</button>
+<button id="en-btn">English</button>
+</div>
+
+<h1 id="title">خريطة الشرق الأوسط</h1>
+
+<div class="map-container">
+<img id="map" src="images/middle_east_map.png" alt="Middle East Map">
+<div id="tooltip" class="tooltip"></div>
+</div>
+
+<script>
+const map = document.getElementById('map');
+const tooltip = document.getElementById('tooltip');
+const title = document.getElementById('title');
+const arBtn = document.getElementById('ar-btn');
+const enBtn = document.getElementById('en-btn');
+
+let language = 'ar';
+
+const countries = [
+{name_ar:'العراق', name_en:'Iraq', x:400, y:150},
+{name_ar:'السعودية', name_en:'Saudi Arabia', x:400, y:300},
+{name_ar:'إيران', name_en:'Iran', x:500, y:120},
+{name_ar:'سوريا', name_en:'Syria', x:350, y:100},
+{name_ar:'الأردن', name_en:'Jordan', x:300, y:150},
+];
+
+map.addEventListener('mousemove',(e)=>{
+const rect=map.getBoundingClientRect();
+const mouseX=e.clientX-rect.left;
+const mouseY=e.clientY-rect.top;
+let found=false;
+countries.forEach(country=>{
+if(Math.abs(mouseX-country.x)<30 && Math.abs(mouseY-country.y)<30){
+tooltip.style.display='block';
+tooltip.style.left=(country.x+10)+'px';
+tooltip.style.top=(country.y+10)+'px';
+tooltip.innerText=language==='ar'?country.name_ar:country.name_en;
+found=true;
+}});
+if(!found){tooltip.style.display='none';}
+});
+
+arBtn.addEventListener('click',()=>{language='ar'; title.innerText='خريطة الشرق الأوسط';});
+enBtn.addEventListener('click',()=>{language='en'; title.innerText='Middle East Map';});
+</script>
+
+</body>
+</html>
