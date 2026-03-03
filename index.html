@@ -101,3 +101,102 @@ map.style.transform=`translate(${originX}px,${originY}px) scale(${scale})`;
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خريطة الشرق الأوسط تفاعلية</title>
+<style>
+body { font-family:sans-serif; margin:0; text-align:center; background:#f5f5f5; }
+.language-toggle { margin:15px; }
+.language-toggle button { padding:8px 16px; margin:4px; cursor:pointer; font-size:16px; }
+h1 { color:#003366; margin:5px; }
+.map-container { position:relative; display:inline-block; margin:10px auto; max-width:90%; overflow:hidden; border:2px solid #000; background:#eee; }
+#map { width:100%; display:block; }
+.tooltip { position:absolute; background:rgba(0,0,0,0.8); color:#fff; padding:6px 12px; border-radius:6px; display:none; pointer-events:none; font-size:14px; white-space: nowrap; }
+#reset-btn { margin:10px; padding:6px 12px; cursor:pointer; }
+.overlay { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+</style>
+</head>
+<body>
+
+<div class="language-toggle">
+<button id="ar-btn">عربي</button>
+<button id="en-btn">English</button>
+</div>
+
+<h1 id="title">خريطة الشرق الأوسط</h1>
+
+<div class="map-container">
+<img id="map" src="images/middle_east_map.png" alt="Middle East Map">
+<canvas id="overlay" class="overlay"></canvas>
+<div id="tooltip" class="tooltip"></div>
+</div>
+
+<button id="reset-btn">إعادة الخريطة</button>
+
+<script>
+const map=document.getElementById('map');
+const tooltip=document.getElementById('tooltip');
+const title=document.getElementById('title');
+const arBtn=document.getElementById('ar-btn');
+const enBtn=document.getElementById('en-btn');
+const resetBtn=document.getElementById('reset-btn');
+const overlay=document.getElementById('overlay');
+const ctx=overlay.getContext('2d');
+
+let language='ar';
+
+// بيانات الدول (إحداثيات تقريبية)
+const countries=[
+{name_ar:'العراق', name_en:'Iraq', capital_ar:'بغداد', capital_en:'Baghdad', population:'40M', x:400, y:150, w:40, h:40},
+{name_ar:'السعودية', name_en:'Saudi Arabia', capital_ar:'الرياض', capital_en:'Riyadh', population:'35M', x:400, y:300, w:50, h:50},
+{name_ar:'إيران', name_en:'Iran', capital_ar:'طهران', capital_en:'Tehran', population:'85M', x:500, y:120, w:50, h:50},
+{name_ar:'سوريا', name_en:'Syria', capital_ar:'دمشق', capital_en:'Damascus', population:'18M', x:350, y:100, w:40, h:40},
+{name_ar:'الأردن', name_en:'Jordan', capital_ar:'عمان', capital_en:'Amman', population:'10M', x:300, y:150, w:30, h:30},
+];
+
+// ضبط حجم Canvas Overlay
+overlay.width=map.width;
+overlay.height=map.height;
+
+// Tooltip وتغيير اللون عند المرور
+map.addEventListener('mousemove',e=>{
+    const rect=map.getBoundingClientRect();
+    const mouseX=e.clientX-rect.left;
+    const mouseY=e.clientY-rect.top;
+
+    let found=false;
+    ctx.clearRect(0,0,overlay.width,overlay.height);
+
+    countries.forEach(c=>{
+        if(mouseX>c.x && mouseX<c.x+c.w && mouseY>c.y && mouseY<c.y+c.h){
+            found=true;
+            tooltip.style.display='block';
+            tooltip.style.left=e.pageX+10+'px';
+            tooltip.style.top=e.pageY+10+'px';
+            tooltip.innerHTML=language==='ar'?
+            `${c.name_ar}<br>العاصمة: ${c.capital_ar}<br>السكان: ${c.population}`:
+            `${c.name_en}<br>Capital: ${c.capital_en}<br>Population: ${c.population}`;
+            // تلوين المنطقة عند المرور
+            ctx.fillStyle='rgba(255,102,0,0.4)';
+            ctx.fillRect(c.x,c.y,c.w,c.h);
+        }
+    });
+    if(!found){tooltip.style.display='none'; ctx.clearRect(0,0,overlay.width,overlay.height);}
+});
+
+// تبديل اللغة
+arBtn.addEventListener('click',()=>{language='ar'; title.innerText='خريطة الشرق الأوسط';});
+enBtn.addEventListener('click',()=>{language='en'; title.innerText='Middle East Map';});
+
+// إعادة الخريطة
+resetBtn.addEventListener('click',()=>{
+    tooltip.style.display='none';
+    ctx.clearRect(0,0,overlay.width,overlay.height);
+});
+
+</script>
+</body>
+</html>
