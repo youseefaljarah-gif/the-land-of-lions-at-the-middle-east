@@ -3,72 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Sentinel AI | منصة الرصد الاستخباراتي</title>
+    <title>Intelligence Hub | Yousif al jarah</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        :root { --ai-gold: #ffcc00; --tech-blue: #0066ff; --danger: #ff3300; --bg: #020408; --panel: #0f172a; }
-        body { background: var(--bg); color: #d1d5db; font-family: 'Segoe UI', sans-serif; margin: 0; }
-        nav { background: rgba(15, 22, 36, 0.9); padding: 15px 5%; display: flex; justify-content: space-between; border-bottom: 1px solid var(--tech-blue); position: sticky; top: 0; z-index: 1000; }
-        .pulse { width: 10px; height: 10px; background: var(--ai-gold); border-radius: 50%; animation: p 2s infinite; display: inline-block; margin-left: 10px; }
-        @keyframes p { 0% { box-shadow: 0 0 0 0 rgba(255,204,0,0.4); } 100% { box-shadow: 0 0 0 15px rgba(255,204,0,0); } }
-        .container { padding: 30px 5%; display: grid; grid-template-columns: 1fr 350px; gap: 25px; }
-        #map { height: 500px; border-radius: 15px; border: 1px solid #1e293b; }
-        .ai-box { background: var(--panel); padding: 25px; border-radius: 15px; border: 1px solid #2d3748; margin-top: 20px; }
-        .btn-ai { background: linear-gradient(90deg, var(--tech-blue), #00d4ff); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 10px; }
-        #ai-output { margin-top: 15px; padding: 15px; background: #000; border-radius: 8px; color: #00ffcc; font-family: monospace; display: none; border-right: 3px solid var(--ai-gold); }
-        .risk-card { background: #111827; padding: 15px; margin-bottom: 15px; border-right: 4px solid var(--tech-blue); }
-        .high { border-right-color: var(--danger); }
-        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+        :root { --main-gold: #d4af37; --cyber-blue: #00d4ff; --danger-red: #ff0000; --bg: #010204; }
+        body { background: var(--bg); color: #e1e1e1; font-family: 'Tahoma', sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* شريط العنوان الاحترافي باسمك */
+        header { 
+            background: #0a0c10; padding: 20px 5%; border-bottom: 2px solid var(--main-gold);
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .identity { font-size: 1.5rem; font-weight: bold; color: var(--main-gold); letter-spacing: 2px; }
+        .ai-status { font-size: 0.8rem; color: #3fb950; }
+
+        /* محرك البحث الاستخباراتي */
+        .search-sector { padding: 20px 5%; background: #0d1117; text-align: center; }
+        #intel-search { 
+            width: 60%; padding: 12px 20px; border-radius: 25px; 
+            border: 1px solid var(--cyber-blue); background: #000; color: #fff;
+            outline: none; transition: 0.3s;
+        }
+        #intel-search:focus { box-shadow: 0 0 15px var(--cyber-blue); }
+
+        .dashboard { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; padding: 20px 5%; }
+        #map-view { height: 550px; border-radius: 15px; border: 1px solid #30363d; }
+
+        .ai-panel { background: #0d1117; padding: 20px; border-radius: 15px; border-right: 5px solid var(--main-gold); }
+        .log-screen { 
+            background: #000; padding: 15px; border-radius: 8px; color: #00ff41; 
+            font-family: 'Courier New', monospace; font-size: 0.85rem; height: 250px; 
+            overflow-y: auto; display: none; margin-top: 15px;
+        }
+        .btn-action {
+            background: #161b22; color: var(--cyber-blue); border: 1px solid #30363d;
+            padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; margin-bottom: 10px;
+            text-align: right; transition: 0.3s;
+        }
+        .btn-action:hover { background: var(--cyber-blue); color: #000; }
     </style>
 </head>
 <body>
-<nav>
-    <div style="font-weight: bold; font-size: 1.3rem;">GLOBAL SENTINEL <span style="color: var(--tech-blue);">AI</span></div>
-    <div style="color: var(--ai-gold); font-size: 0.8rem;"><div class="pulse"></div> نظام الذكاء الاصطناعي: نشط</div>
-</nav>
-<div class="container">
-    <main>
-        <div id="map"></div>
-        <div class="ai-box">
-            <h3>🤖 محرك المحاكاة الاستخباراتي (AI Engine)</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <button class="btn-ai" onclick="runAI('conflict')">صراع إيران-إسرائيل</button>
-                <button class="btn-ai" onclick="runAI('usa')">تحرك الولايات المتحدة</button>
-                <button class="btn-ai" onclick="runAI('china')">محور روسيا والصين</button>
-                <button class="btn-ai" onclick="runAI('gulf')">أمن الخليج العربي</button>
-            </div>
-            <div id="ai-output"></div>
-        </div>
-    </main>
-    <aside>
-        <div class="ai-box">
-            <h4>⚠️ مؤشر مخاطر التجارة</h4>
-            <div class="risk-card high"><strong>مضيق هرمز</strong><p>الخطر: 94% - تهديد إمدادات الطاقة.</p></div>
-            <div class="risk-card high"><strong>البحر الأحمر</strong><p>الخطر: 89% - سلاسل الإمداد معطلة.</p></div>
-            <div class="risk-card"><strong>بحر الصين الجنوبي</strong><p>الخطر: 45% - مراقبة النشاط.</p></div>
-        </div>
-    </aside>
+
+<header>
+    <div class="identity">🛡️ OPERATIONS: Yousif al jarah</div>
+    <div class="ai-status">● نظام الذكاء الاصطناعي 2026: متصل ونشط</div>
+</header>
+
+<div class="search-sector">
+    <input type="text" id="intel-search" placeholder="ابحث عن تداعيات الصراع (مثال: الفصائل العراقية، حزب الله، إيران)...">
+    <button onclick="runSearch()" style="padding: 10px 25px; border-radius: 25px; cursor: pointer; background: var(--main-gold); border: none; font-weight: bold;">تحليل AI</button>
 </div>
+
+<div class="dashboard">
+    <div id="map-view"></div>
+    
+    <div class="ai-panel">
+        <h3 style="color: var(--main-gold);">🤖 وحدة التحليل الجيوسياسي</h3>
+        <button class="btn-action" onclick="analyze('iraq')">🔎 رصد تحركات الفصائل في العراق</button>
+        <button class="btn-action" onclick="analyze('lebanon')">📡 تحليل جبهة جنوب لبنان</button>
+        <button class="btn-action" onclick="analyze('iran')">☢️ سيناريو المواجهة: إيران ضد أمريكا</button>
+        <button class="btn-action" onclick="analyze('israel')">🛡️ تقييم الدفاعات الجوية الإسرائيلية</button>
+        
+        <div id="log-screen" class="log-screen"></div>
+    </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    var map = L.map('map').setView([30.0, 45.0], 3);
+    // تهيئة الخريطة الاستخباراتية لعام 2026
+    var map = L.map('map-view').setView([33.0, 44.0], 5);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
-    const centers = [{n:"واشنطن", p:[38.8, -77.0], c:"blue"}, {n:"موسكو", p:[55.7, 37.6], c:"red"}, {n:"بكين", p:[39.9, 116.4], c:"yellow"}, {n:"منطقة الصراع", p:[32.0, 45.0], c:"orange"}];
-    centers.forEach(h => L.circle(h.p, {color: h.c, radius: 400000, fillOpacity: 0.3}).addTo(map).bindPopup(h.n));
-    function runAI(mode) {
-        const out = document.getElementById('ai-output'); out.style.display = 'block';
-        out.
+
+    // إضافة نقاط التوتر الرئيسية
+    const targets = [
+        {name: "قواعد الفصائل (العراق)", p: [33.3, 44.4], c: "red"},
+        {name: "خط التماس (جنوب لبنان)", p: [33.1, 35.2], c: "orange"},
+        {name: "مواقع إستراتيجية (إيران)", p: [32.6, 51.6], c: "yellow"}
+    ];
+    targets.
 
 
-innerHTML = "> جاري استدعاء الخوارزمية...<br>> تحليل مسارات التجارة...";
+forEach(t => L.circle(t.p, {color: t.c, radius: 100000}).addTo(map).bindPopup(t.name));
+
+    function analyze(type) {
+        const screen = document.getElementById('log-screen');
+        screen.style.display = 'block';
+        screen.innerHTML = "> جاري تفعيل خوارزمية Yousif al jarah AI...<br>> جلب بيانات الأقمار الصناعية 2026...<br>";
+        
         setTimeout(() => {
-            let msg = "";
-            if(mode === 'conflict') msg = "تنبؤ AI: أي مواجهة مباشرة تعني إغلاق مضيق هرمز فوراً، ارتفاع النفط لـ 150$، وانهيار في تأمين الشحن البحري.";
-            if(mode === 'usa') msg = "تنبؤ AI: تحرك الأساطيل الأمريكية سيعزز الردع لكنه يزيد من احتمالية الصدام المباشر في الممرات الدولية.";
-            if(mode === 'china') msg = "تنبؤ AI: التحالف الروسي-الصيني يسعى لفرض واقع جيوسياسي جديد يهدد هيمنة الدولار في التجارة العالمية.";
-            if(mode === 'gulf') msg = "تنبؤ AI: دول الخليج تمثل صمام أمان الاقتصاد العالمي؛ أي اهتزاز أمني هناك يعني ركوداً عالمياً شاملاً.";
-            out.innerHTML = <strong>التحليل الاستخباراتي:</strong><br>${msg};
-        }, 1200);
+            let res = "";
+            if(type === 'iraq') res = "تنبؤ: رصد تصعيد في الأنبار وبابل. استهداف القواعد الأمريكية قد يؤدي لرد جراحي سريع.";
+            if(type === 'lebanon') res = "تحليل: حزب الله يمتلك صواريخ دقيقة قادرة على تعطيل الملاحة في حيفا. خطر الحرب الشاملة: 82%.";
+            if(type === 'iran') res = "استخبارات: المواجهة المباشرة تعني إغلاق مضيق هرمز وتوقف 20% من إمدادات الطاقة العالمية.";
+            if(type === 'israel') res = "تقييم: الضغط الصاروخي المتزامن من 3 جبهات يختبر قدرة القبة الحديدية ومقلاع داوود إلى أقصى حد.";
+            screen.innerHTML += > <strong>النتيجة الاستراتيجية:</strong> ${res};
+        }, 1500);
+    }
+
+    function runSearch() {
+        const q = document.getElementById('intel-search').value;
+        if(q) {
+            alert("بأمر من Yousif al jarah: جاري تحليل تداعيات " + q);
+            analyze('iraq'); // تشغيل المحاكي الافتراضي
+        }
     }
 </script>
 </body>
