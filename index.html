@@ -3,59 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مركز التحليل الاستراتيجي</title>
+<title>مركز التحليل الاستراتيجي الحقيقي</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>مركز الرصد والتحليل الاستراتيجي – لوحة تقييم المخاطر الإقليمية</header>
+<header>مركز التحليل الاستراتيجي – مستوى التوتر في الشرق الأوسط</header>
 
 <div class="container">
     <div class="sidebar">
         <button onclick="show('overview')">نظرة عامة</button>
-        <button onclick="show('analysis')">تحليل التهديد</button>
-        <button onclick="show('report')">التقرير المفصلي</button>
+        <button onclick="show('ai')">الذكاء الاصطناعي</button>
         <button onclick="show('logs')">سجل المتابعة</button>
     </div>
 
     <div class="main">
         <div id="overview" class="section">
-            <div class="card">مستوى التوتر الإقليمي: <b id="tension">متوسط</b></div>
-            <div class="card">احتمالية التصعيد خلال 30 يوم: <b id="probability">45%</b></div>
-            <div class="card">الفاعلون الرئيسيون: الولايات المتحدة – إسرائيل – إيران – أطراف إقليمية</div>
-        </div>
-
-        <div id="analysis" class="section">
             <div class="card">
-                مؤشر المخاطر العسكرية
-                <div class="progress"><div id="threatBar"></div></div>
+                مستوى التوتر الإقليمي: <b id="tension">جارٍ التحليل...</b>
             </div>
-            <div class="card">
-                تقييم نوع التصعيد:
-                <ul>
-                    <li>ضربات محدودة ومدروسة</li>
-                    <li>رد غير متماثل عبر وكلاء</li>
-                    <li>تصعيد سيبراني</li>
-                    <li>احتمال مواجهة مفتوحة (منخفض حالياً)</li>
-                </ul>
+            <div class="card">div class="progress"><div id="tensionBar"></مؤشر التوتر الرقمي: <div class="progress"><div id="tensionBar/div>
             </div>
         </div>
 
-        <div id="report" class="section">
+        <div id="ai" class="section">
             <div class="card">
-                <h3>التقرير التحليلي</h3>
-                <p>
-لم تعد الضربات العسكرية التي نفذتها الولايات المتحدة وإسرائيل ضد أهداف داخل إيران مجرد عملية عسكرية عابرة،
-بل تحوّلت إلى حدث مفصلي يهدد بإعادة تشكيل معادلات الردع في الشرق الأوسط.
-                </p>
-                <p>
-التصعيد جاء بعد فترة من الجمود في المسار التفاوضي المتعلق بالبرنامج النووي الإيراني،
-وسط تبادل اتهامات بشأن تطوير قدرات صاروخية وطائرات مسيّرة بعيدة المدى.
-                </p>
-                <p>
-واشنطن وتل أبيب بررتا الضربات بأنها استباقية وتستهدف منع تهديد وشيك،
-فيما اعتبرتها طهران اعتداءً مباشراً على سيادتها.
-                </p>
+                <h3>نظام الأسئلة والأجوبة الذكي</h3>
+                <input type="text" id="userQuestion" placeholder="اكتب سؤالك هنا" style="width:80%;padding:8px;">
+                <button onclick="askAI()">اسأل</button>
+                <p id="aiAnswer" style="margin-top:10px;color:#ffdd00;"></p>
             </div>
         </div>
 
@@ -67,4 +43,4 @@
 
 <script src="script.js"></script>
 </body>
-</html
+</html>
