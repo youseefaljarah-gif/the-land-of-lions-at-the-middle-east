@@ -1,62 +1,42 @@
-const KEY = "intel2026";
-
-function login(){
-    let pass = document.getElementById("password").value;
-    if(pass === KEY){
-        document.getElementById("login").style.display="none";
-        document.getElementById("system").style.display="block";
-        showSection("dashboard");
-        startSimulation();
-    }else{
-        document.getElementById("error").innerText="ACCESS DENIED";
-    }
-}
-
-function logout(){
-    location.reload();
-}
-
-function showSection(id){
+function show(id){
     document.querySelectorAll(".section").forEach(s=>s.style.display="none");
     document.getElementById(id).style.display="block";
 }
+show("overview");
 
-function startSimulation(){
+setInterval(()=>{
+    let risk = Math.floor(Math.random()*100);
+    document.getElementById("threatBar").style.width=risk+"%";
+    document.getElementById("tension").innerText =
+        risk>70?"مرتفع":risk>40?"متوسط":"منخفض";
+    document.getElementById("probability").innerText =
+        (30 + Math.floor(Math.random()*50))+"%";
+},4000);
 
-    setInterval(()=>{
-        let threat = Math.floor(Math.random()*100);
-        document.getElementById("bar").style.width = threat+"%";
+setInterval(()=>{
+    let log=document.getElementById("logBox");
+    log.innerHTML+="[ "+new Date().toLocaleTimeString()+" ] تحديث تقييم المخاطر...<br>";
+    log.scrollTop=log.scrollHeight;
+},3000);
 
-        document.getElementById("threatLevel").innerText =
-        threat>70?"HIGH":threat>40?"MEDIUM":"LOW";
 
-        document.getElementById("status").innerText =
-        threat>80?"ALERT":"SECURE";
-
-        document.getElementById("load").innerText =
-        Math.floor(Math.random()*100)+"%";
-
-        document.getElementById("targets").innerText =
-        Math.floor(Math.random()*15)+1;
-
-    },3000);
-
-    const records = [
-        "Encrypted file intercepted",
-        "Unknown signal detected",
-        "Sector Alpha anomaly",
-        "Suspicious login attempt"
-    ];
-
-    records.forEach(r=>{
-        let li=document.createElement("li");
-        li.innerText=r;
-        document.getElementById("records").appendChild(li);
-    });
-
-    setInterval(()=>{
-        let term=document.getElementById("terminal");
-        term.innerHTML+="[ "+new Date().toLocaleTimeString()+" ] scanning network...<br>";
-        term.scrollTop=term.scrollHeight;
-    },2000);
+function show(id){
+    document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+    document.getElementById(id).style.display="block";
 }
+show("overview");
+
+setInterval(()=>{
+    let risk = Math.floor(Math.random()*100);
+    document.getElementById("threatBar").style.width=risk+"%";
+    document.getElementById("tension").innerText =
+        risk>70?"مرتفع":risk>40?"متوسط":"منخفض";
+    document.getElementById("probability").innerText =
+        (30 + Math.floor(Math.random()*50))+"%";
+},4000);
+
+setInterval(()=>{
+    let log=document.getElementById("logBox");
+    log.innerHTML+="[ "+new Date().toLocaleTimeString()+" ] تحديث تقييم المخاطر...<br>";
+    log.scrollTop=log.scrollHeight;
+},3000);
