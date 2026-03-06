@@ -3,55 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iran Live Clone</title>
+<title>Live Middle East</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header>
-  <h1>Iran Live Clone</h1>
-  <nav>
-    <ul>
-      <li><a href="#home">🏠 Home</a></li>
-      <li><a href="#live">📺 Live Stream</a></li>
-      <li><a href="#news">📰 News</a></li>
-      <li><a href="#about">📍 About</a></li>
-      <li><a href="#contact">📩 Contact</a></li>
-    </ul>
-  </nav>
+<h1>Live Middle East</h1>
+<nav>
+<a href="#home">🏠 Home</a>
+<a href="#live">📺 Live Stream</a>
+<a href="#news">📰 News</a>
+<a href="#channels">📍 Channels</a>
+<a href="#contact">📩 Contact</a>
+</nav>
 </header>
 
 <section id="home">
-  <h2>Home</h2>
-  <p>مرحبا بك في النسخة التجريبية لموقع Iran Live.</p>
+<h2>Home</h2>
+<p>مرحبا بك في موقع البث المباشر وتحديثات الأخبار لمنطقة الشرق الأوسط.</p>
 </section>
 
 <section id="live">
-  <h2>Live Stream</h2>
-  <p>ضع رابط البث المباشر هنا:</p>
-  <iframe src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID" width="600" height="400"></iframe>
+<h2>Live Stream</h2>
+<iframe id="stream" width="900" height="500" src="https://www.youtube.com/embed/live_stream?channel=UCNye-wNBqNL5ZzHSJj3l8Bg" frameborder="0" allowfullscreen></iframe>
+<p id="viewers"></p>
 </section>
 
 <section id="news">
-  <h2>News</h2>
-  <ul>
-    <li>خبر 1: تحليل سياسي عن الأحداث الأخيرة.</li>
-    <li>خبر 2: تحديثات عاجلة من إيران.</li>
-    <li>خبر 3: تقرير يومي عن الأحداث الجارية.</li>
-  </ul>
+<h2>Latest News</h2>
+<ul id="newsList"></ul>
 </section>
 
-<section id="about">
-  <h2>About</h2>
-  <p>هذه النسخة مبسطة لتجربة تصميم موقع بث مباشر وأخبار.</p>
+<section id="channels">
+<h2>Channels</h2>
+<button onclick="changeStream('UCNye-wNBqNL5ZzHSJj3l8Bg')">Iran Live</button>
+<button onclick="changeStream('UC16niRr50-MSBwiO3YDb3RA')">Al Jazeera Mubasher</button>
+<button onclick="changeStream('UCfiwzLy-8yKzIbsmZTzxDgw')">Al Hadath</button>
+<button onclick="changeStream('UChd7iT8tT8w9v-KkzO7dN5g')">Al Sumaria</button>
 </section>
 
 <section id="contact">
-  <h2>Contact</h2>
-  <p>للتواصل: info@example.com</p>
+<h2>Contact</h2>
+<p>للتواصل: info@example.com</p>
 </section>
 
 <footer>
-  <p>&copy; 2026 Iran Live Clone</p>
+<p>&copy; 2026 Live Middle East</p>
 </footer>
 
 <script src="script.js"></script>
