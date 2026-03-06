@@ -3,74 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live News Portal</title>
+<title>Middle East Strategic News</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <h1>Live News Portal</h1>
+  <h1>Middle East Strategic News Portal</h1>
   <nav>
-    <a href="#home">🏠 Home</a>
-    <a href="#live">📺 Live</a>
-    <a href="#news">📰 News</a>
-    <a href="#channels">📍 Channels</a>
-    <a href="#contact">📩 Contact</a>
+    <a href="#home">🏠 الرئيسية</a>
+    <a href="#map">🗺️ خريطة الأحداث</a>
+    <a href="#news">📰 الأخبار</a>
+    <a href="#alerts">⚡ التنبيهات</a>
+    <a href="#support">💰 دعم الموقع</a>
   </nav>
 </header>
 
 <div class="container">
 
 <section id="home">
-  <h2>مرحبا!</h2>
-  <p>تابع أهم البثوث الإخبارية الحيّة من القنوات التي تعمل ضمن الموقع.</p>
+  <h2>مرحباً بك!</h2>
+  <p>تابع أهم الأحداث السياسية والعسكرية في الشرق الأوسط مباشرة.</p>
 </section>
 
-<section id="live">
-  <h2>Live Stream</h2>
-  <iframe id="stream" width="100%" height="450"
-    src="https://www.youtube.com/embed/live_stream?channel=UC16niRr50-MSBwiO3YDb3RA"
-    frameborder="0" allowfullscreen></iframe>
-  <p id="viewers"></p>
-
-  <div id="ads">
-    <p style="color:yellow; font-weight:bold;">[مكان إعلان AdSense]</p>
-  </div>
+<section id="map">
+  <h2>خريطة تفاعلية</h2>
+  <div id="mapContainer"></div>
 </section>
 
 <section id="news">
-  <h2>Latest News</h2>
+  <h2>آخر الأخبار</h2>
   <ul id="newsList"></ul>
 </section>
 
-<section id="channels">
-  <h2>Channels</h2>
-  
-  <!-- قنوات تعمل داخل iframe -->
-  <button onclick="changeStream('UC16niRr50-MSBwiO3YDb3RA')">الجزيرة مباشر</button>
-  <button onclick="changeStream('UCfiwzLy-8yKzIbsmZTzxDgw')">قناة الحدث</button>
-
-  <hr style="border-top: 1px solid #555; margin:10px 0;">
-
-  <!-- قنوات تفتح في نافذة جديدة -->
-  <button onclick="openExternal('https://www.youtube.com/c/AlSumariaTV/live')">السومرية نيوز مباشر</button>
-  <button onclick="openExternal('https://www.youtube.com/c/NRTOfficialLive/live')">NRT Live</button>
-  <button onclick="openExternal('https://www.youtube.com/c/RudawEnglish/live')">Rudaw Live</button>
-  <button onclick="openExternal('https://www.youtube.com/c/AlArabiya/live')">العربية مباشر</button>
-
+<section id="alerts">
+  <h2>تنبيهات لحظية</h2>
+  <div id="alertBox"></div>
 </section>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <p>للتواصل: info@example.com</p>
+<section id="support">
+  <h2>دعم الموقع</h2>
+  <p>يمكنك دعم الموقع عبر Patreon أو Buy Me a Coffee.</p>
+  <a href="https://www.patreon.com/" target="_blank">🎁 Patreon</a>
+  <a href="https://www.buymeacoffee.com/" target="_blank">☕ Buy Me a Coffee</a>
 </section>
 
 </div>
 
 <footer>
-  <p>&copy; 2026 Live News Portal</p>
+  <p>&copy; 2026 Middle East Strategic News</p>
 </footer>
 
 <script src="script.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </body>
 </html>
