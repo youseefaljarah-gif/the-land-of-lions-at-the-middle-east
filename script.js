@@ -1,44 +1,38 @@
-// script.js
+const iframe = document.getElementById("stream");
 
-// 1️⃣ رسالة ترحيب عند تحميل الصفحة
-window.addEventListener("load", () => {
-    alert("مرحبا بك في Iran Live Clone! استمتع بالتصميم التفاعلي.");
-});
-
-// 2️⃣ تغيير لون القسم عند المرور عليه
-const sections = document.querySelectorAll("section");
-sections.forEach(section => {
-    section.addEventListener("mouseenter", () => {
-        section.style.backgroundColor = "#e0f7fa"; // لون عند المرور
-    });
-    section.addEventListener("mouseleave", () => {
-        section.style.backgroundColor = "#fff"; // اللون الافتراضي
-    });
-});
-
-// 3️⃣ Smooth scroll عند الضغط على الروابط
-const links = document.querySelectorAll("nav ul li a");
-links.forEach(link => {
-    link.addEventListener("click", function(e){
-        e.preventDefault();
-        const targetId = this.getAttribute("href").substring(1);
-        const target = document.getElementById(targetId);
-        target.scrollIntoView({ behavior: "smooth" });
-    });
-});
-
-// 4️⃣ عداد مشاهدات وهمي لتفاعل المستخدم
-const liveSection = document.getElementById("live");
-const counter = document.createElement("p");
-counter.id = "viewCounter";
-counter.style.fontWeight = "bold";
-counter.style.color = "#d32f2f";
-liveSection.appendChild(counter);
-
-let viewers = Math.floor(Math.random() * 500) + 50; // عدد مشاهدين عشوائي
-function updateCounter() {
-    viewers += Math.floor(Math.random() * 5); // زيادة عشوائية
-    document.getElementById("viewCounter").innerText = المشاهدين الحاليين: ${viewers};
+// تغيير القناة عند الضغط على أي زر
+function changeStream(channel){
+    iframe.src = "https://www.youtube.com/embed/live_stream?channel=" + channel;
 }
-updateCounter();
-setInterval(updateCounter, 5000); // ت
+
+// عداد مشاهدين وهمي
+let viewers = Math.floor(Math.random()*900)+100;
+const viewerElem = document.getElementById("viewers");
+
+function updateViewers(){
+    viewers += Math.floor(Math.random()*10);
+    viewerElem.innerText = "المشاهدون الآن: " + viewers;
+}
+updateViewers();
+setInterval(updateViewers, 3000);
+
+// تحديث الأخبار تلقائي
+const news = [
+    "توتر سياسي في الشرق الأوسط",
+    "اجتماعات دبلوماسية في المنطقة",
+    "تحليل استراتيجي للأحداث الجارية",
+    "تطورات جديدة في الملف الإقليمي",
+    "تحديث عاجل: تطورات جديدة في العراق وإيران"
+];
+
+const newsList = document.getElementById("newsList");
+
+function updateNews(){
+    let n = news[Math.floor(Math.random()*news.length)];
+    let li = document.createElement("li");
+    li.innerText = n;
+    newsList.prepend(li);
+}
+
+setInterval(updateNews, 8000);
+updateNews();
