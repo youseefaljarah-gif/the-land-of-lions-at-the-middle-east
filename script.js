@@ -95,6 +95,29 @@ async function fetchLiveNews() {
   } catch (err) {
     console.error("خطأ في جلب الأخبار الحية:", err);
   }
+async function fetchLiveNews() {
+  try {
+    const response = await fetch('https://xyz123.pipedream.net/live-news.json');
+    const data = await response.json();
+    newsList.innerHTML = '';
+    data.telegram_events.forEach(ev => {
+      const li = document.createElement("li");
+      li.innerText = [Telegram] ${ev.text};
+      newsList.appendChild(li);
+    });
+    data.twitter_events.forEach(ev => {
+      const li = document.createElement("li");
+      li.innerText = [Twitter] ${ev.text};
+      newsList.appendChild(li);
+    });
+    data.rss_events.forEach(ev => {
+      const li = document.createElement("li");
+      li.innerHTML = [RSS] <a href="${ev.link}" target="_blank">${ev.title}</a>;
+      newsList.appendChild(li);
+    });
+  } catch (err) {
+    console.error("Error fetching live news:", err);
+  }
 }
 setInterval(fetchLiveNews, 10000);
 fetchLiveNews();
