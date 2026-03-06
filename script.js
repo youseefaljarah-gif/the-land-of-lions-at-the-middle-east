@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
       .bindPopup(`<b>${ev.country}</b><br>${ev.description}`);
   });
 
-  // 2️⃣ الأخبار المباشرة نموذجية
+  // 2️⃣ الأخبار والتنبيهات
   const newsList = document.getElementById("newsList");
   const viewerCount = document.getElementById("viewerCount");
   let viewers = Math.floor(Math.random()*500)+200;
@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function() {
     li.innerText = n;
     newsList.prepend(li);
 
-    // تحديث المشاهدين
     viewers += Math.floor(Math.random()*10);
     viewerCount.innerText = "المشاهدون الآن: " + viewers;
   }
