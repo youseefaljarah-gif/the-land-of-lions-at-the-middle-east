@@ -1,45 +1,58 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مركز التحليل الاستراتيجي الحقيقي</title>
+<title>Iran Live Clone</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header>
+  <h1>Iran Live Clone</h1>
+  <nav>
+    <ul>
+      <li><a href="#home">🏠 Home</a></li>
+      <li><a href="#live">📺 Live Stream</a></li>
+      <li><a href="#news">📰 News</a></li>
+      <li><a href="#about">📍 About</a></li>
+      <li><a href="#contact">📩 Contact</a></li>
+    </ul>
+  </nav>
+</header>
 
-<header>مركز التحليل الاستراتيجي – مستوى التوتر في الشرق الأوسط</header>
+<section id="home">
+  <h2>Home</h2>
+  <p>مرحبا بك في النسخة التجريبية لموقع Iran Live.</p>
+</section>
 
-<div class="container">
-    <div class="sidebar">
-        <button onclick="show('overview')">نظرة عامة</button>
-        <button onclick="show('ai')">الذكاء الاصطناعي</button>
-        <button onclick="show('logs')">سجل المتابعة</button>
-    </div>
+<section id="live">
+  <h2>Live Stream</h2>
+  <p>ضع رابط البث المباشر هنا:</p>
+  <iframe src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID" width="600" height="400"></iframe>
+</section>
 
-    <div class="main">
-        <div id="overview" class="section">
-            <div class="card">
-                مستوى التوتر الإقليمي: <b id="tension">جارٍ التحليل...</b>
-            </div>
-            <div class="card">div class="progress"><div id="tensionBar"></مؤشر التوتر الرقمي: <div class="progress"><div id="tensionBar/div>
-            </div>
-        </div>
+<section id="news">
+  <h2>News</h2>
+  <ul>
+    <li>خبر 1: تحليل سياسي عن الأحداث الأخيرة.</li>
+    <li>خبر 2: تحديثات عاجلة من إيران.</li>
+    <li>خبر 3: تقرير يومي عن الأحداث الجارية.</li>
+  </ul>
+</section>
 
-        <div id="ai" class="section">
-            <div class="card">
-                <h3>نظام الأسئلة والأجوبة الذكي</h3>
-                <input type="text" id="userQuestion" placeholder="اكتب سؤالك هنا" style="width:80%;padding:8px;">
-                <button onclick="askAI()">اسأل</button>
-                <p id="aiAnswer" style="margin-top:10px;color:#ffdd00;"></p>
-            </div>
-        </div>
+<section id="about">
+  <h2>About</h2>
+  <p>هذه النسخة مبسطة لتجربة تصميم موقع بث مباشر وأخبار.</p>
+</section>
 
-        <div id="logs" class="section">
-            <div class="card"><div id="logBox"></div></div>
-        </div>
-    </div>
-</div>
+<section id="contact">
+  <h2>Contact</h2>
+  <p>للتواصل: info@example.com</p>
+</section>
+
+<footer>
+  <p>&copy; 2026 Iran Live Clone</p>
+</footer>
 
 <script src="script.js"></script>
 </body>
