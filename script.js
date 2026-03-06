@@ -5,11 +5,11 @@ function changeStream(channel){
 }
 
 // عداد مشاهدين وهمي
-let viewers = Math.floor(Math.random()*900)+100;
+let viewers = Math.floor(Math.random()*500)+100;
 const viewerElem = document.getElementById("viewers");
 
 function updateViewers(){
-  viewers += Math.floor(Math.random()*10);
+  viewers += Math.floor(Math.random()*5);
   viewerElem.innerText = "المشاهدون الآن: " + viewers;
 }
 updateViewers();
@@ -17,14 +17,12 @@ setInterval(updateViewers, 3000);
 
 // تحديث الأخبار تلقائي
 const news = [
-  "توتر سياسي في الشرق الأوسط",
-  "اجتماعات دبلوماسية في المنطقة",
-  "تحليل استراتيجي للأحداث الجارية",
-  "تطورات جديدة في الملف الإقليمي",
-  "تحديث عاجل: تطورات جديدة في العراق وإيران",
-  "أخبار عاجلة: متابعة الأحداث اليومية في الوطن العربي",
-  "تغطية حية لأبرز الأحداث السياسية",
-  "ملخص الأحداث العربية والعالمية"
+  "أحدث الأخبار العربية والعالمية مباشرة",
+  "تغطية عاجلة: تطورات الأحداث السياسية",
+  "تحليل أحداث الساعة من مصادر موثوقة",
+  "تحديثات الساعة للأخبار الاقتصادية",
+  "تقارير مباشرة من الميدان",
+  "أخبار الرياضة العالمية"
 ];
 
 const newsList = document.getElementById("newsList");
