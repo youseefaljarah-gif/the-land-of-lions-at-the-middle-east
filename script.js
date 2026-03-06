@@ -1,7 +1,13 @@
 const iframe = document.getElementById("stream");
 
+// تغيير البث داخل iframe للقنوات المسموح بها
 function changeStream(channel){
   iframe.src = "https://www.youtube.com/embed/live_stream?channel=" + channel;
+}
+
+// فتح قناة في نافذة جديدة
+function openExternal(url){
+  window.open(url, "_blank");
 }
 
 // عداد مشاهدين وهمي
@@ -13,16 +19,17 @@ function updateViewers(){
   viewerElem.innerText = "المشاهدون الآن: " + viewers;
 }
 updateViewers();
-setInterval(updateViewers, 3000);
+setInterval(updateViewers, 3500);
 
 // تحديث الأخبار تلقائي
 const news = [
-  "أحدث الأخبار العربية والعالمية مباشرة",
-  "تغطية عاجلة: تطورات الأحداث السياسية",
-  "تحليل أحداث الساعة من مصادر موثوقة",
-  "تحديثات الساعة للأخبار الاقتصادية",
-  "تقارير مباشرة من الميدان",
-  "أخبار الرياضة العالمية"
+  "أخبار عاجلة من الساحة العربية",
+  "تقارير مباشرة من الحدث",
+  "تحليلات سياسية لحظية",
+  "عاجل: تطورات جديدة في الشرق الأوسط",
+  "آخر أخبار الاقتصاد العالمي",
+  "تغطية حية للأحداث السياسية",
+  "ملخص الأخبار اليوم"
 ];
 
 const newsList = document.getElementById("newsList");
@@ -33,5 +40,5 @@ function updateNews(){
   li.innerText = n;
   newsList.prepend(li);
 }
-setInterval(updateNews, 8000);
+setInterval(updateNews, 9000);
 updateNews();
