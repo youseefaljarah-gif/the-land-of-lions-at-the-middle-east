@@ -1,6 +1,6 @@
 const iframe = document.getElementById("stream");
 
-// تغيير القناة عند الضغط على أي زر
+// تغيير البث عند الضغط على أي زر
 function changeStream(channel){
     iframe.src = "https://www.youtube.com/embed/live_stream?channel=" + channel;
 }
@@ -22,7 +22,10 @@ const news = [
     "اجتماعات دبلوماسية في المنطقة",
     "تحليل استراتيجي للأحداث الجارية",
     "تطورات جديدة في الملف الإقليمي",
-    "تحديث عاجل: تطورات جديدة في العراق وإيران"
+    "تحديث عاجل: تطورات جديدة في العراق وإيران",
+    "أخبار عاجلة: متابعة الأحداث اليومية في الوطن العربي",
+    "تغطية حية لأبرز الأحداث السياسية",
+    "ملخص الأحداث العربية والعالمية"
 ];
 
 const newsList = document.getElementById("newsList");
@@ -33,6 +36,5 @@ function updateNews(){
     li.innerText = n;
     newsList.prepend(li);
 }
-
 setInterval(updateNews, 8000);
 updateNews();
