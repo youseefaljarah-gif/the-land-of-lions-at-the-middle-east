@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Middle East Strategic News</title>
+<title>Middle East Strategic News | youssef-al-jarah</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
@@ -13,10 +13,11 @@
   <h1>Middle East Strategic News Portal</h1>
   <nav>
     <a href="#home">🏠 الرئيسية</a>
-    <a href="#map">🗺️ خريطة الأحداث</a>
+    <a href="#map">🗺️ الخريطة</a>
     <a href="#news">📰 الأخبار</a>
     <a href="#alerts">⚡ التنبيهات</a>
     <a href="#live">📺 البث المباشر</a>
+    <a href="#admin">⚙️ لوحة التحكم</a>
   </nav>
 </header>
 
@@ -24,35 +25,47 @@
 
 <section id="home">
   <h2>مرحباً بك!</h2>
-  <p>تابع أهم الأحداث السياسية والعسكرية في الشرق الأوسط مباشرة.</p>
+  <p>بوابتك لمتابعة الأحداث السياسية والاستراتيجية في الشرق الأوسط مباشرة.</p>
 </section>
 
 <section id="map">
-  <h2>خريطة تفاعلية</h2>
+  <h2>🗺️ خريطة الأحداث</h2>
   <div id="mapContainer"></div>
 </section>
 
 <section id="news">
-  <h2>آخر الأخبار</h2>
+  <h2>📰 آخر الأخبار</h2>
   <p id="viewerCount"></p>
   <ul id="newsList"></ul>
 </section>
 
 <section id="alerts">
-  <h2>تنبيهات لحظية</h2>
+  <h2>⚡ تنبيهات لحظية</h2>
   <div id="alertBox"></div>
 </section>
 
 <section id="live">
-  <h2>البث المباشر للقنوات العربية</h2>
+  <h2>📺 البث المباشر للقنوات العربية</h2>
   <div class="live-videos">
-    <!-- العربية مباشر -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/live_stream?channel=UCrp_UI8xSksO5Smj7R4kPQQ" frameborder="0" allowfullscreen></iframe>
-    <!-- الحدث مباشر -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/live_stream?channel=UCfiY0wwl6-0w0EJTS7X7c-Q" frameborder="0" allowfullscreen></iframe>
-    <!-- الجزيرة مباشر -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/live_stream?channel=UCNye-wNBqNL5ZzHSJj3l8Bg" frameborder="0" allowfullscreen></iframe>
+    <iframe width="560" height="315" 
+      src="https://www.youtube.com/embed/live_stream?channel=UCrp_UI8xSksO5Smj7R4kPQQ"
+      frameborder="0" allowfullscreen></iframe>
+      
+    <iframe width="560" height="315"
+      src="https://www.youtube.com/embed/live_stream?channel=UCfiY0wwl6-0w0EJTS7X7c-Q"
+      frameborder="0" allowfullscreen></iframe>
+      
+    <iframe width="560" height="315"
+      src="https://www.youtube.com/embed/live_stream?channel=UCNye-wNBqNL5ZzHSJj3l8Bg"
+      frameborder="0" allowfullscreen></iframe>
   </div>
+</section>
+
+<section id="admin">
+  <h2>⚙️ لوحة التحكم</h2>
+  <p>أضف خبر جديد:</p>
+  <input type="text" id="newTitle" placeholder="عنوان الخبر">
+  <button onclick="addNews()">اضف الخبر</button>
 </section>
 
 </div>
