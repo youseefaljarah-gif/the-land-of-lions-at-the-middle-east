@@ -1,69 +1,68 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live News Portal</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+body {
+  font-family: "Times New Roman", Times, serif;
+  background: #121212;
+  color: #eee;
+  margin: 0;
+}
 
-<header>
-  <h1>Live News Portal</h1>
-  <nav>
-    <a href="#home">🏠 Home</a>
-    <a href="#live">📺 Live</a>
-    <a href="#news">📰 News</a>
-    <a href="#channels">📍 Channels</a>
-    <a href="#contact">📩 Contact</a>
-  </nav>
-</header>
+header {
+  background: #222;
+  padding: 15px 20px;
+  text-align: center;
+}
 
-<div class="container">
+header h1 {
+  margin: 0;
+  font-size: 28px;
+}
 
-<section id="home">
-  <h2>مرحبا!</h2>
-  <p>تابع أهم البثوث الإخبارية الحيّة من القنوات العربية والعالمية.</p>
-</section>
+nav a {
+  color: #ddd;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 17px;
+}
 
-<section id="live">
-  <h2>Live Stream</h2>
-  <iframe id="stream" width="100%" height="500"
-    src="https://www.youtube.com/embed/live_stream?channel=@alarabytv/live"
-    frameborder="0" allowfullscreen></iframe>
-  <p id="viewers"></p>
+nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
 
-  <div id="ads">
-    <p style="color:darkblue; font-weight:bold;">[مكان إعلان AdSense]</p>
-  </div>
-</section>
+.container {
+  max-width: 1000px;
+  margin: 25px auto;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+}
 
-<section id="news">
-  <h2>Latest News</h2>
-  <ul id="newsList"></ul>
-</section>
+section {
+  margin-bottom: 30px;
+}
 
-<section id="channels">
-  <h2>Channels</h2>
-  <button onclick="changeStream('@alarabytv/live')">العربي مباشر</button>
-  <button onclick="changeStream('@aljazeeramubasher/live')">الجزيرة مباشر</button>
-  <button onclick="changeStream('@alhadath/live')">قناة الحدث</button>
-  <button onclick="changeStream('@bbclive')">BBC News Live</button>
-  <button onclick="changeStream('@reuterslive')">Reuters Live</button>
-  <button onclick="changeStream('@cnnnews')">CNN News Live</button>
-</section>
+h2 {
+  border-bottom: 2px solid #444;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
 
-<section id="contact">
-  <h2>Contact</h2>
-  <p>للتواصل: info@example.com</p>
-</section>
+button {
+  padding: 8px 16px;
+  margin: 5px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-</div>
+button:hover {
+  background: #575757;
+}
 
-<footer>
-  <p>&copy; 2026 Live News Portal</p>
-</footer>
-
-<script src="script.js"></script>
-</body>
-</html>
+footer {
+  text-align: center;
+  padding: 12px;
+  background: #222;
+  color: #ccc;
+}
