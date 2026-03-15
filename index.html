@@ -3,39 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Youssif Al Jarah | Official Empire</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>Youssif Al Jarah | Tactical Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <canvas id="matrix-canvas"></canvas>
+    <div class="cyber-overlay"></div>
 
-    <div class="container fade-in">
-        <div class="profile-frame">
-            <img src="Me.jpg" alt="Youssif Al Jarah" class="profile-img">
+    <main class="main-frame container">
+        <header class="system-header">
+            <div class="status-group">
+                <span class="blink">●</span>
+                <span>SYSTEM: OPERATIONAL</span>
+            </div>
+            <div class="brand">AL JARAH OS v2.0</div>
+            <div class="coord">33.3152° N, 44.3661° E</div>
+        </header>
+
+        <section class="identity-module">
+            <div class="profile-box">
+                <div class="laser-scanner"></div>
+                <img src="Me.jpg" alt="Youssif Al Jarah" class="profile-img">
+                <div class="corner tl"></div><div class="corner tr"></div>
+                <div class="corner bl"></div><div class="corner br"></div>
+            </div>
+            <h1 class="glitch-title" data-text="YOUSSIF AL JARAH">YOUSSIF AL JARAH</h1>
+            <div class="typewriter">Full Stack Developer // Cyber Architect</div>
+        </section>
+
+        <div class="data-grid">
+            <div class="module goals">
+                <h3 class="module-label">_COMMAND_MISSION</h3>
+                <div class="goal"><span class="tag">ACTV</span> IRAQ WEB DOMINANCE</div>
+                <div class="goal"><span class="tag wait">PEND</span> NEURAL INTERFACE</div>
+            </div>
+
+            <div class="module socials">
+                <h3 class="module-label">_CONNECT_PROTOCOLS</h3>
+                <div class="btn-group">
+                    <a href="https://www.instagram.com/qj1ik" target="_blank" class="cyber-link">INSTAGRAM.01</a>
+                    <a href="https://www.instagram.com/usgo" target="_blank" class="cyber-link">INSTAGRAM.02</a>
+                    <a href="https://t.me/WILLIAM_115" target="_blank" class="cyber-link">TELEGRAM.EXE</a>
+                    <a href="https://www.tiktok.com/@3.ysf" target="_blank" class="cyber-link">TIKTOK.SYS</a>
+                </div>
+            </div>
         </div>
 
-        <span class="trust-phrase">In God We Trust</span>
-        <h1 class="main-title">Youssif Al Jarah</h1>
-
-        <div class="mission-control">
-            <h3 class="section-title">TARGETED GOALS 2026</h3>
-            <div class="goal-item"><span class="status">LIVE</span> Dominating Iraq's Web Space</div>
-            <div class="goal-item"><span class="status pending">WAITING</span> Launching AI Application</div>
-        </div>
-
-        <div class="links-wrapper">
-            <a href="https://www.instagram.com/qj1ik" class="link-card" target="_blank">Instagram: QJ1IK</a>
-            <a href="https://www.instagram.com/usgo" class="link-card" target="_blank">Instagram: USGO</a>
-            <a href="https://www.tiktok.com/@3.ysf" class="link-card" target="_blank">TikTok</a>
-            <a href="https://t.me/WILLIAM_115" class="link-card" target="_blank">Telegram</a>
-            <a href="https://www.snapchat.com/add/jxj5x" class="link-card" target="_blank">Snapchat</a>
-        </div>
-
-        <div class="spotify-container">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2t949pU7Xf0SStolVvXv1S?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-        </div>
-    </div>
+        <footer class="system-footer">
+            <div class="spotify-wrapper">
+                <iframe src="http://googleusercontent.com/spotify.com/6" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+        </footer>
+    </main>
 
     <script src="script.js"></script>
 </body>
