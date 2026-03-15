@@ -4,52 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Youssif Al Jarah | Tactical Command</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-title">BOOTING AL_JARAH_OS...</div>
+            <div class="progress-bar-bg"><div id="progress-bar"></div></div>
+            <div id="load-pc">0%</div>
+        </div>
+    </div>
+
     <canvas id="matrix-canvas"></canvas>
-    
     <div class="cyber-overlay"></div>
 
-    <main class="main-frame container">
+    <main class="container">
         <header class="system-header">
-            <div class="status-group">
-                <span class="blink">●</span>
-                <span>SYSTEM: ONLINE</span>
-            </div>
-            <div class="brand">AL JARAH OS // GTA V EDITION</div>
-            <div class="coord">LS - 33.3152° N</div>
+            <div class="status-group"><span>● SYSTEM: ONLINE</span></div>
+            <div class="brand">AL JARAH OS // V3.0 FINAL</div>
         </header>
 
         <section class="identity-module">
-            <div class="profile-box empty-profile">
-                <div class="laser-scanner"></div>
-                <div class="corner tl"></div><div class="corner tr"></div>
-                <div class="corner bl"></div><div class="corner br"></div>
+            <div class="scanner-box">
+                <div class="laser"></div>
             </div>
             <h1 class="glitch-title" data-text="YOUSSIF AL JARAH">YOUSSIF AL JARAH</h1>
-            <div class="typewriter">Cyber Architect & Web Dominator // [STATUS: INCOGNITO]</div>
+            <div class="typewriter">Cyber Architect & Web Dominator // [BAGHDAD]</div>
         </section>
 
         <div class="data-grid">
-            <div class="module socials">
-                <h3 class="module-label">_NETWORK_PROTOCOLS</h3>
-                <div class="btn-group">
-                    <a href="https://www.instagram.com/qj1ik" target="_blank" class="cyber-link">INSTAGRAM.01</a>
-                    <a href="https://www.instagram.com/usgo" target="_blank" class="cyber-link">INSTAGRAM.02</a>
-                    <a href="https://t.me/WILLIAM_115" target="_blank" class="cyber-link">TELEGRAM.EXE</a>
-                    <a href="https://www.tiktok.com/@3.ysf" target="_blank" class="cyber-link">TIKTOK.SYS</a>
-                    <a href="https://www.snapchat.com/add/jxj5x" target="_blank" class="cyber-link">SNAPCHAT.LOG</a>
-                </div>
-            </div>
+            <a href="https://www.instagram.com/qj1ik" class="cyber-link">INSTAGRAM.01</a>
+            <a href="https://www.instagram.com/usgo" class="cyber-link">INSTAGRAM.02</a>
+            <a href="https://t.me/WILLIAM_115" class="cyber-link">TELEGRAM.EXE</a>
+            <a href="https://www.tiktok.com/@3.ysf" class="cyber-link">TIKTOK.SYS</a>
+        </div>
+
+        <div class="terminal-window">
+            <div class="term-head">LIVE_CONSOLE_FEED</div>
+            <div id="term-body"></div>
         </div>
 
         <footer class="system-footer">
             <h3 class="module-label">_GTA_V_RADIO_STREAM</h3>
-            <div class="spotify-wrapper">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6v66M64249vD0H92H8V37f?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            </div>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6vN7Yl9tG1hLgM0H7q6XJk" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </footer>
     </main>
 
