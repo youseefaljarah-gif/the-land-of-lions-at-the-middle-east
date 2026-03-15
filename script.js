@@ -1,87 +1,69 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+// --- إمبراطورية يوسف الجراح: التفاعل الذكي ---
 
-public class YoussefEmpire extends JFrame {
-    private JPanel container;
-    private JLabel title;
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("%cتم تفعيل نظام يوسف الجراح البرمجي..", "color: #556b2f; font-size: 20px; font-weight: bold;");
 
-    public YoussefEmpire() {
-        // إعدادات النافذة
-        setTitle("إمبراطورية يوسف");
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(null);
+    // 1. تأثير تتبع الماوس (Mouse Follower)
+    // يخلق هالة زيتونية تتبع حركة الماوس في الصفحة
+    const container = document.querySelector('.container');
+    document.addEventListener('mousemove', (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        container.style.transform = perspective(1000px) rotateX(${(y - 0.5) * 10}deg) rotateY(${(x - 0.5) * -10}deg);
+    });
 
-        // 1️⃣ حاوية مركزية
-        container = new JPanel();
-        container.setBackground(new Color(85, 107, 47));
-        container.setBounds(100, 100, 600, 400);
-        container.setLayout(null);
-        add(container);
+    // 2. تأثير الطباعة التلقائية للعناوين (Typing Effect)
+    const title = document.querySelector('.main-title');
+    const text = title.innerText;
+    title.innerText = '';
+    let i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            title.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 150);
+        }
+    }
+    typeWriter();
 
-        // 2️⃣ العنوان مع تأثير الكتابة
-        title = new JLabel("");
-        title.setFont(new Font("Arial", Font.BOLD, 30));
-        title.setForeground(Color.WHITE);
-        title.setBounds(50, 50, 500, 50);
-        container.add(title);
-
-        String text = "مرحباً بك في إمبراطورية يوسف";
-        new Thread(() -> {
-            try {
-                for (int i = 0; i < text.length(); i++) {
-                    String current = text.substring(0, i + 1);
-                    SwingUtilities.invokeLater(() -> title.setText(current));
-                    Thread.sleep(80); // سرعة الكتابة
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-
-        // 3️⃣ متابعة حركة الماوس لتغيير لون الحاوية
-        container.addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseMoved(MouseEvent e) {
-                int r = 85 + (int)((double)e.getX()/container.getWidth()*170);
-                int g = 107 + (int)((double)e.getY()/container.getHeight()*148);
-                int b = 47 + (int)((1-(double)e.getX()/container.getWidth())*100);
-                container.setBackground(new Color(r, g, b));
-            }
+    // 3. رسائل تفاعلية عند الضغط على الروابط
+    const links = document.querySelectorAll('.link-card');
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            console.log(`%cاستعداد للدخول إلى: ${link.innerText}`, "color: #d4af37");
         });
 
-        // 4️⃣ أزرار (روابط) مع نبضة عند الضغط
-        JButton link1 = new JButton("الرابط 1");
-        JButton link2 = new JButton("الرابط 2");
-        JButton link3 = new JButton("الرابط 3");
+        link.addEventListener('click', (e) => {
+            // تأثير نبضة عند الضغط
+            link.style.transform = "scale(0.9)";
+            setTimeout(() => { link.style.transform = "scale(1)"; }, 100);
+        });
+    });
 
-        JButton[] links = {link1, link2, link3};
-        int x = 50;
-        for (JButton btn : links) {
-            btn.setBounds(x, 150, 120, 40);
-            container.add(btn);
-            x += 150;
+    // 4. نظام الترحيب الصوتي أو التنبيهي
+    // سيظهر تنبيه ترحيبي بمجرد دخول أي شخص للموقع
+    setTimeout(() => {
+        const welcomeMsg = document.createElement('div');
+        welcomeMsg.innerHTML = "مرحباً بك في إمبراطورية يوسف";
+        welcomeMsg.style.cssText = `
+            position: fixed; bottom: 20px; right: 20px;
+            background: #556b2f; color: white; padding: 10px 20px;
+            border-radius: 50px; border: 1px solid #d4af37;
+            font-size: 14px; box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 1000; animation: slideIn 0.5s forwards;
+        `;
+        document.body.appendChild(welcomeMsg);
+        
+        // إخفاء الرسالة بعد 4 ثواني
+        setTimeout(() => { welcomeMsg.style.display = 'none'; }, 4000);
+    }, 2000);
+});
 
-            btn.addActionListener(ae -> {
-                // نبضة عند الضغط
-                new Thread(() -> {
-                    try {
-                        btn.setSize(108, 36);
-                        Thread.sleep(100);
-                        btn.setSize(120, 40);
-                    } catch (InterruptedException e) { e.printStackTrace(); }
-                }).start();
-                System.out.println("استعداد للدخول إلى: " + btn.getText());
-            });
-        }
-
-        setVisible(true);
-
-        // 5️⃣ رسالة ترحيب
-        new Timer(2000, e -> JOptionPane.showMessageDialog(this, "مرحباً بك في إمبراطورية يوسف")).start();
-    }
-
-    public static void main(String[] args) {
-        new YoussefEmpire();
-    }
-}
+// إضافة أنيميشن للرسالة الترحيبية
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}`;
+document.head.appendChild(style);
