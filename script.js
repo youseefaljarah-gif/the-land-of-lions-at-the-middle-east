@@ -5,18 +5,20 @@ window.onload = () => {
     const loader = document.getElementById('loader-wrapper');
 
     const int = setInterval(() => {
-        p += Math.floor(Math.random() * 20);
+        p += Math.floor(Math.random() * 20) + 2;
         if(p >= 100) {
             p = 100;
             clearInterval(int);
-            setTimeout(() => loader.style.display = 'none', 500);
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 500);
         }
         bar.style.width = p + '%';
         pc.innerText = p + '%';
-    }, 150);
+    }, 100);
 };
 
-// Matrix Background
 const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth; canvas.height = window.innerHeight;
